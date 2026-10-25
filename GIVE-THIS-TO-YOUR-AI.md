@@ -147,7 +147,7 @@ Do this once, in one pass, and show the owner the list of files you touched.
 4. Socials: `your-handle` in the LinkedIn links and in the JSON-LD `sameAs` array. Add or remove `sameAs` entries as they have them.
 5. Identity in JSON-LD: `jobTitle`, `description` on the `Person` in `index.html`; `author`/`publisher` on sub-pages already point at `#person` and need no change.
 6. `<title>` and `<meta name="description">` on every page, plus `og:title` / `og:description`. Write them as real descriptions of the real page, not of the template.
-7. Résumé: replace `assets/resume.pdf` or change the `resume-link` href in `index.html` (or delete the link).
+7. Résumé: this starter has no résumé link. If one is added, link only the public résumé file the owner supplies.
 8. Analytics: each page has an `<!-- ===== Analytics` marker in `<head>`. Paste their snippet there on every page, or leave the marker alone.
 9. Copy: everything that reads as Em-Dash Ipsum (the self-aware placeholder text) goes. See *Writing their copy* below before you write a word.
 10. Images: see *Swap an image*. Delete `assets/aww/` only after nothing references it: `grep -rn "assets/aww" --include=*.html .` must come back empty.

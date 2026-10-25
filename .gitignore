@@ -1,8 +1,10 @@
-# macOS
+# Operating systems
 .DS_Store
 .AppleDouble
 .LSOverride
 ._*
+Thumbs.db
+Desktop.ini
 
 # Editors
 .vscode/
@@ -10,11 +12,41 @@
 *.swp
 *~
 
-# Logs / scratch
-*.log
-node_modules/
+# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Node and test output
+node_modules/
+coverage/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+
+# Local configuration and secrets
+.env
+.env.*
 .dev.vars
+.aws/
+*.local
+*.pem
+*.key
+
+# Build output and scratch
 dist/
-.codex-migration-checkpoint/
+build/
+tmp/
+*.log

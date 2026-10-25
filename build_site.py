@@ -24,9 +24,11 @@ def main():
     if DIST.exists():
         shutil.rmtree(DIST)
     ignored = shutil.ignore_patterns(
-        ".git", ".github", ".codex", ".aws", ".codex-migration-checkpoint", "dist",
-        "__pycache__", "*.pyc", "*.py", "*.md", ".gitignore", ".env", ".env.*",
-        ".dev.vars", "*.env", "*.pem", "*.key", "wrangler.toml",
+        ".git", ".github", ".codex", ".aws", "dist", "build", "tmp", "node_modules",
+        "__pycache__", "*.pyc", "*.pyo", "*.py", "*.md", ".gitignore",
+        ".venv", "venv", "env", ".pytest_cache", ".mypy_cache", ".ruff_cache",
+        ".hypothesis", ".tox", ".nox", ".coverage", "coverage", "htmlcov",
+        ".env", ".env.*", ".dev.vars", "*.env", "*.local", "*.pem", "*.key", "*.log",
         "works", "templates", "docs", "screenshots",
         "_content-backup",
     )
