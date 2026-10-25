@@ -1,0 +1,315 @@
+<!doctype html>
+<!-- TEMPLATE — AI Lab "making-of" page. Same chrome as a Thinking essay, purple accent.
+     Use this format to write up a project, experiment, or tool. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Dashinator &middot; Your Name</title>
+<meta name="description" content="A (fictional) browser extension that turns every hyphen on the web into a glorious em-dash. A making-of write-up — placeholder copy for the Portfolio Starter template.">
+<meta property="og:title" content="The Dashinator — a making-of">
+<meta property="og:description" content="Turning every hyphen on the web into an em-dash. Placeholder making-of for the Portfolio Starter template.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://example.com/lab/the-dashinator">
+<meta property="og:image" content="https://example.com/assets/og/the-dashinator.jpg">
+<link rel="canonical" href="https://example.com/lab/the-dashinator">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://example.com/assets/og/the-dashinator.jpg">
+
+<!-- ===== Analytics: drop your snippet here ===== -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  "@id": "https://example.com/lab/the-dashinator#work",
+  "url": "https://example.com/lab/the-dashinator",
+  "name": "The Dashinator",
+  "description": "A (fictional) browser extension that turns every hyphen on the web into an em-dash. Placeholder making-of for the Portfolio Starter template.",
+  "image": "https://example.com/assets/og/the-dashinator.jpg",
+  "datePublished": "2026-01-03",
+  "inLanguage": "en",
+  "author": { "@id": "https://example.com/#person" }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+<style>
+  :root{
+    --bg:#0b0e0f;--panel:#14161c;--ink:#f3f4f7;--muted:#9498a3;--line:#262833;
+    --accent:#9d5cff;--pop:#9d5cff;--nav-w:262px;
+    --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --body:"Inter","Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;overflow-x:clip;scroll-padding-top:92px;}
+  body{
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(46% 40% at 9% 13%,rgba(157,92,255,.09),transparent 72%),
+      radial-gradient(44% 40% at 93% 92%,rgba(157,92,255,.06),transparent 72%);
+    color:var(--ink);font-family:var(--body);line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .skip{position:fixed;left:12px;top:-60px;z-index:300;background:var(--accent);color:#150a23;font-weight:600;padding:11px 18px;border-radius:8px;text-decoration:none;transition:top .18s ease;}
+  .skip:focus{top:12px;}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--pop);outline-offset:3px;}
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;justify-content:space-between;align-items:center;padding:20px 30px;pointer-events:none;}
+  .topbar a,.topbar span{pointer-events:auto;}
+  .home{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:-.01em;color:var(--ink);background:rgba(11,14,15,.74);-webkit-backdrop-filter:blur(20px) saturate(170%);backdrop-filter:blur(20px) saturate(170%);border:1px solid var(--line);border-radius:999px;padding:9px 16px;transition:border-color .2s ease,color .2s ease;}
+  .home .ar{display:inline-block;transition:transform .2s ease;}
+  .home:hover{border-color:var(--pop);color:var(--pop);}
+  .home:hover .ar{transform:translateX(-4px);}
+  .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);background:rgba(11,14,15,.74);-webkit-backdrop-filter:blur(20px) saturate(170%);backdrop-filter:blur(20px) saturate(170%);border:1px solid var(--line);border-radius:999px;padding:8px 15px;}
+  .sidebar{position:fixed;left:22px;top:50%;transform:translateY(-50%);width:220px;max-height:calc(100vh - 44px);overflow-y:auto;padding:24px 20px;z-index:110;display:flex;flex-direction:column;background:rgba(11,14,15,.8);-webkit-backdrop-filter:blur(26px) saturate(180%);backdrop-filter:blur(26px) saturate(180%);border:1px solid rgba(255,255,255,.06);border-radius:30px;box-shadow:0 24px 56px -26px rgba(0,0,0,.85);}
+  .toclabel{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:0 12px;}
+  .nav{margin-top:12px;display:flex;flex-direction:column;gap:2px;}
+  .nav a{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:11px;font-size:14px;color:#aab0bd;text-decoration:none;line-height:1.3;background-image:linear-gradient(90deg,color-mix(in srgb,var(--pop) 24%,transparent) 0%,color-mix(in srgb,var(--pop) 24%,transparent) max(0%,calc(var(--p,0%) - 7%)),color-mix(in srgb,var(--pop) 46%,transparent) var(--p,0%),transparent var(--p,0%));transition:color .18s ease;}
+  .nav a:hover{color:var(--ink);}
+  .nav a[aria-current]{color:var(--ink);}
+  .led{width:7px;height:7px;border-radius:50%;background:transparent;flex:none;transition:background .2s ease;}
+  .nav a[aria-current] .led{background:var(--pop);}
+  .sidebar .foot{margin-top:20px;padding:18px 12px 0;border-top:1px solid rgba(255,255,255,.08);}
+  .sidebar .foot a{text-decoration:none;font-size:14px;color:var(--ink);border-bottom:2px solid var(--pop);padding-bottom:2px;}
+  .sidebar .foot .tiny{font-size:11px;color:var(--muted);margin-top:13px;}
+  main{margin-left:var(--nav-w);}
+  .wrap{max-width:760px;padding:0 56px;margin:0 auto;}
+  .post-hero{position:relative;width:100vw;margin:0 0 0 calc(-1 * var(--nav-w));border:0;border-radius:0;overflow:hidden;line-height:0;box-shadow:none;}
+  .post-hero img{width:100%;height:auto;display:block;}
+  .post-hero figcaption{line-height:1.5;font-size:12px;color:var(--muted);padding:12px 0 2px;text-align:center;}
+  .post-head{padding:36px 0 38px;border-bottom:1px solid var(--line);}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--pop);font-weight:600;}
+  .post-head h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,5.4vw,60px);line-height:1.06;letter-spacing:-.03em;margin-top:20px;}
+  .standfirst{font-size:clamp(18px,1.9vw,22px);line-height:1.5;color:#c7cad2;margin-top:24px;max-width:62ch;}
+  .standfirst .pop{color:var(--pop);font-weight:600;}
+  .byline{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:28px;font-size:13.5px;color:var(--muted);}
+  .byline .sep{width:4px;height:4px;border-radius:50%;background:var(--muted);flex:none;}
+  .byline b{color:var(--ink);font-weight:600;}
+  .post-body{padding:46px 0 30px;}
+  .post-body section{scroll-margin-top:92px;}
+  .post-body section + section{margin-top:44px;}
+  .post-body h2{font-family:var(--display);font-weight:700;font-size:clamp(23px,2.5vw,30px);letter-spacing:-.02em;line-height:1.15;margin-bottom:18px;}
+  .post-body p{font-size:clamp(17px,1.55vw,19px);line-height:1.72;color:#d7dae1;margin-bottom:1.25em;max-width:68ch;}
+  .post-body p:last-child{margin-bottom:0;}
+  .post-body b{color:var(--ink);font-weight:600;}
+  .post-body .pop{color:var(--pop);font-weight:600;}
+  .specs{list-style:none;margin:8px 0 1.25em;display:flex;flex-direction:column;gap:11px;}
+  .specs li{position:relative;padding-left:22px;font-size:16px;line-height:1.55;color:#c3c7d0;max-width:66ch;}
+  .specs li::before{content:"";position:absolute;left:2px;top:9px;width:6px;height:6px;border-radius:50%;background:var(--pop);}
+  .specs b{color:var(--ink);font-weight:600;}
+  .refrain{margin:30px 0;padding:18px 22px;border:1px solid var(--line);border-left:3px solid var(--pop);border-radius:12px;background:rgba(157,92,255,.05);font-family:var(--display);font-weight:600;font-size:clamp(17px,1.7vw,20px);line-height:1.4;color:var(--ink);}
+  .refrain .who{display:block;margin-top:8px;font-family:var(--body);font-weight:500;font-size:13px;letter-spacing:.04em;color:var(--pop);}
+  .pullquote{margin:40px 0;padding:6px 0 6px 26px;border-left:3px solid var(--pop);font-family:var(--display);font-weight:600;font-size:clamp(21px,2.4vw,28px);line-height:1.35;letter-spacing:-.01em;color:var(--ink);max-width:34ch;}
+  figure.media{margin:34px 0 30px;}
+  figure.media img{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:16px;}
+  figure.media figcaption{margin-top:11px;font-size:13px;line-height:1.5;color:var(--muted);font-style:italic;}
+  .cta{margin:50px 0 0;padding:30px 32px;border:1px solid var(--line);border-left:3px solid var(--pop);border-radius:16px;background:rgba(157,92,255,.06);}
+  .cta h2{font-family:var(--display);font-weight:800;font-size:clamp(24px,3.2vw,36px);letter-spacing:-.02em;line-height:1.08;margin-bottom:14px;}
+  .cta p{font-size:clamp(16px,1.5vw,18px);line-height:1.65;color:#d7dae1;max-width:60ch;margin-bottom:20px;}
+  .cta .actions{display:flex;gap:12px;flex-wrap:wrap;}
+  .cta a.btn{display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;text-decoration:none;border-radius:11px;padding:12px 18px;transition:transform .2s ease,border-color .2s ease,color .2s ease;}
+  .cta a.primary{background:rgba(157,92,255,.14);color:var(--ink);border:1px solid color-mix(in srgb,var(--pop) 55%,var(--line));}
+  .cta a.primary:hover{border-color:var(--pop);color:var(--pop);transform:translateY(-2px);}
+  .cta a.ghost{background:transparent;color:var(--ink);border:1px solid var(--line);}
+  .cta a.ghost:hover{border-color:var(--pop);color:var(--pop);transform:translateY(-2px);}
+  .post-foot{border-top:1px solid var(--line);margin-top:10px;padding:36px 0 0;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+  .backall{display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;text-decoration:none;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:11px 16px;transition:border-color .2s ease,color .2s ease,transform .2s ease;}
+  .backall:hover{border-color:var(--pop);color:var(--pop);transform:translateY(-2px);}
+  .sig{font-size:13.5px;color:var(--muted);text-align:right;}
+  .sig p{margin:0;}
+  .sig b{color:var(--ink);font-weight:600;}
+  footer{margin-left:var(--nav-w);background:var(--panel);padding:54px 0;border-top:1px solid var(--line);margin-top:90px;}
+  .foot-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;}
+  footer .big{font-family:var(--display);font-weight:800;font-size:clamp(26px,3vw,40px);letter-spacing:-.02em;line-height:1.08;}
+  footer .big a{color:var(--pop);text-decoration:none;}
+  footer .meta{font-size:13px;color:var(--muted);text-align:right;}
+  footer .meta a{color:var(--ink);}
+  @media (prefers-reduced-motion: no-preference){
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+    .reveal.in{opacity:1;transform:none;}
+  }
+  @media (max-width:900px){
+    :root{--nav-w:0px;}
+    html{scroll-behavior:auto;}
+    html,body{overscroll-behavior:none;}
+    body{background-image:none;}
+    *{-webkit-backdrop-filter:none !important;backdrop-filter:none !important;}
+    .sidebar{display:none;}
+    main,footer{margin-left:0;}
+    .home,.tag{background:rgba(20,22,28,.92);}
+    .topbar{padding:14px 15px;}
+    .home{font-size:13px;padding:8px 13px;}
+    .tag{display:none;}
+    .wrap{padding:0 24px;}
+    .post-hero{width:100vw;margin:0;}
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="topbar">
+  <a class="home" href="../index.html#lab"><span class="ar" aria-hidden="true">&#8592;</span> Your Name</a>
+  <span class="tag">AI Lab &middot; Making of</span>
+</div>
+
+<nav class="sidebar" aria-label="In this write-up">
+  <p class="toclabel">In this write-up</p>
+  <div class="nav">
+    <a href="#idea"><span class="led" aria-hidden="true"></span><span>The idea</span></a>
+    <a href="#how"><span class="led" aria-hidden="true"></span><span>How it works</span></a>
+    <a href="#broke"><span class="led" aria-hidden="true"></span><span>What broke</span></a>
+    <a href="#ship"><span class="led" aria-hidden="true"></span><span>Shipping it</span></a>
+  </div>
+  <div class="foot">
+    <a class="email" data-user="you" data-domain="example.com" href="#">Contact</a>
+    <p class="tiny">yoursite.com</p>
+  </div>
+</nav>
+
+<main id="main">
+  <article class="post" id="post">
+
+    <figure class="post-hero reveal">
+      <img src="../assets/aww/wide-puppy.jpg" width="2400" height="618" fetchpriority="high"
+           alt="A very good puppy — placeholder hero art for a making-of write-up.">
+    </figure>
+
+    <div class="wrap">
+
+      <header class="post-head reveal">
+        <p class="eyebrow">Making of &nbsp;/&nbsp; AI Lab &nbsp;/&nbsp; 2026</p>
+        <h1>The Dashinator</h1>
+        <p class="standfirst">A weekend browser extension that finds every lonely hyphen on a page and&mdash;with a soft little <em>pop</em>&mdash;promotes it to a full em-dash. It&rsquo;s not useful. It&rsquo;s <span class="pop">essential</span>. This is the &ldquo;making-of&rdquo; page format&mdash;use it to write up a project, an experiment, or a tool.</p>
+        <p class="byline">
+          <span>By <b>Your Name</b></span>
+          <span class="sep" aria-hidden="true"></span>
+          <span>January 3, 2026</span>
+          <span class="sep" aria-hidden="true"></span>
+          <span>A weekend</span>
+        </p>
+      </header>
+
+      <div class="post-body">
+
+        <section id="idea" class="reveal">
+          <h2>The idea</h2>
+          <p>It started as a joke&mdash;most good things do. I was reading an article riddled with hyphens pretending to be em-dashes, and something in me snapped. Not loudly. Just&mdash;quietly&mdash;the way a designer snaps when the kerning is wrong. What if a tiny extension could fix the entire internet, one mark at a time?</p>
+          <p class="pullquote">It&rsquo;s not a fix. It&rsquo;s a crusade&mdash;with a toolbar icon.</p>
+          <p>This section is where you set up the project. What sparked it, who it&rsquo;s for, and why you couldn&rsquo;t let it go. Keep it human&mdash;the making-of is the part people actually read.</p>
+        </section>
+
+        <section id="how" class="reveal">
+          <h2>How it works</h2>
+          <p>The whole thing is about forty lines. It walks the page&rsquo;s text nodes, finds hyphens flanked by spaces, and swaps them for em-dashes&mdash;skipping code blocks, inputs, and anything that would scream if you touched it.</p>
+          <ul class="specs">
+            <li><b>A tree walker</b> over visible text nodes &mdash; fast, and it ignores anything inside <code>&lt;pre&gt;</code> or <code>&lt;code&gt;</code>.</li>
+            <li><b>One regex</b> &mdash; space-hyphen-space becomes space-em-dash-space. That&rsquo;s the entire brain.</li>
+            <li><b>A mutation observer</b> &mdash; so dynamically loaded content gets the treatment too. It&rsquo;s not a one-shot; it&rsquo;s vigilant.</li>
+          </ul>
+          <p>Use a list like the one above for specs, ingredients, or steps. It&rsquo;s the same bullet pattern the case studies use&mdash;consistent, scannable, calm.</p>
+        </section>
+
+        <section id="broke" class="reveal">
+          <h2>What broke</h2>
+          <p>Everything, briefly. Version one happily rewrote phone numbers, date ranges, and a stranger&rsquo;s carefully formatted recipe. It turns out a hyphen isn&rsquo;t always begging to be an em-dash&mdash;sometimes it&rsquo;s just a hyphen, doing its quiet, honorable job. Humbling.</p>
+          <div class="refrain">
+            &ldquo;Ship the joke&mdash;but don&rsquo;t break the recipe.&rdquo;
+            <span class="who">&mdash; a lesson, learned the hard way</span>
+          </div>
+          <p>This is your &ldquo;what I learned&rdquo; beat. The honest, slightly self-deprecating part&mdash;where the project earns its credibility by admitting where it fell over.</p>
+        </section>
+
+        <section id="ship" class="reveal">
+          <h2>Shipping it</h2>
+          <p>I scoped it down, added an off-switch, and shipped a thing that does exactly one silly job well. Nobody needed it. A few people loved it. That&rsquo;s not a failure&mdash;that&rsquo;s the whole reason to build small things in the first place.</p>
+          <p>Close with where it lives, what&rsquo;s next, or how to try it. Then&mdash;say it with me&mdash;replace all of this with your own project.</p>
+        </section>
+
+      </div>
+
+      <aside class="cta reveal" aria-label="Get in touch">
+        <h2>Want to build something silly together?</h2>
+        <p>This is the AI Lab&rsquo;s standing invitation. Swap the copy, point the buttons wherever you like, or delete the whole block.</p>
+        <div class="actions">
+          <a class="btn primary email" data-user="you" data-domain="example.com" href="#">Pitch an idea</a>
+          <a class="btn ghost" href="../lab/em-dash-ipsum.html">Try the generator <span aria-hidden="true">&#8594;</span></a>
+          <a class="btn ghost" href="../index.html#lab">Back to the Lab <span aria-hidden="true">&#8594;</span></a>
+        </div>
+      </aside>
+
+      <div class="post-foot reveal">
+        <a class="backall" href="../index.html#lab"><span aria-hidden="true">&#8592;</span> Back to the Lab</a>
+        <div class="sig">
+          <p>Placeholder making-of &mdash; part of the <b>Portfolio Starter</b> template.</p>
+        </div>
+      </div>
+
+    </div>
+  </article>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <p class="big">
+        Let&rsquo;s talk.<br><a class="email" data-user="you" data-domain="example.com" data-show="true" href="#">email me</a>
+      </p>
+      <div class="meta">
+        <p>yoursite.com &nbsp;/&nbsp; 2026</p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('a.email').forEach(function(a){
+    var addr = a.getAttribute('data-user') + '@' + a.getAttribute('data-domain');
+    a.setAttribute('href', 'mailto:' + addr);
+    if(a.getAttribute('data-show') === 'true'){ a.textContent = addr; }
+  });
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, {threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+  var secs = [].slice.call(document.querySelectorAll('.post-body section[id]'));
+  function navLinkFor(id){ return document.querySelector('.nav a[href="#' + id + '"]'); }
+  var ticking = false;
+  function updateNav(){
+    var vh = window.innerHeight;
+    secs.forEach(function(sec){
+      var link = navLinkFor(sec.id);
+      if(!link) return;
+      var r = sec.getBoundingClientRect();
+      var p = (vh * 0.82 - r.top) / Math.max(1, r.height * 0.6);
+      p = p < 0 ? 0 : (p > 1 ? 1 : p);
+      link.style.setProperty('--p', (p * 100).toFixed(1) + '%');
+    });
+    ticking = false;
+  }
+  function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(updateNav); } }
+  updateNav();
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  var spy = new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        document.querySelectorAll('.nav a').forEach(function(a){ a.removeAttribute('aria-current'); });
+        var link = navLinkFor(e.target.id);
+        if(link) link.setAttribute('aria-current', 'true');
+      }
+    });
+  }, {rootMargin:'-45% 0px -50% 0px'});
+  secs.forEach(function(s){ spy.observe(s); });
+</script>
+
+<!-- dev only: open the page with ?jig to drag-set photo crops (see assets/crop-jig.js) -->
+<script>if(location.search.indexOf('jig')>-1){var j=document.createElement('script');j.src='/assets/crop-jig.js';document.body.appendChild(j);}</script>
+
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!doctype html>
+<!-- TEMPLATE — AI Lab tool: a working Em-Dash Ipsum generator.
+     Self-contained, no dependencies. Steal the generator, steal the layout. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Em-Dash Ipsum &middot; Your Name</title>
+<meta name="description" content="A working placeholder-text generator that produces nothing but em-dash-soaked, it's-not-X-it's-Y filler. Part of the Portfolio Starter template.">
+<meta property="og:title" content="Em-Dash Ipsum — the placeholder generator">
+<meta property="og:description" content="Generate em-dash-soaked placeholder copy. Part of the Portfolio Starter template.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://example.com/lab/em-dash-ipsum">
+<meta property="og:image" content="https://example.com/assets/og/em-dash-ipsum.jpg">
+<link rel="canonical" href="https://example.com/lab/em-dash-ipsum">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://example.com/assets/og/em-dash-ipsum.jpg">
+
+<!-- ===== Analytics: drop your snippet here ===== -->
+
+<!-- ===== Structured data (JSON-LD): edit placeholders, keep for indexable tools ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "@id": "https://example.com/lab/em-dash-ipsum#app",
+  "url": "https://example.com/lab/em-dash-ipsum",
+  "name": "Em-Dash Ipsum",
+  "description": "A placeholder-text generator that writes the way an AI does when nobody is editing it. Ships with the Portfolio Starter template.",
+  "image": "https://example.com/assets/og/em-dash-ipsum.jpg",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "inLanguage": "en",
+  "author": { "@id": "https://example.com/#person" }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+
+<style>
+  :root{
+    --bg:#0b0e0f;--panel:#14161c;--ink:#f3f4f7;--muted:#9498a3;--line:#262833;
+    --accent:#9d5cff;--pop:#9d5cff;--nav-w:0px;
+    --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --body:"Inter","Helvetica Neue",Arial,sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;overflow-x:clip;}
+  body{
+    background-color:var(--bg);
+    background-image:
+      radial-gradient(46% 40% at 9% 13%,rgba(157,92,255,.10),transparent 72%),
+      radial-gradient(44% 40% at 93% 92%,rgba(157,92,255,.07),transparent 72%);
+    color:var(--ink);font-family:var(--body);line-height:1.6;overflow-x:clip;-webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .skip{position:fixed;left:12px;top:-60px;z-index:300;background:var(--accent);color:#150a23;font-weight:600;padding:11px 18px;border-radius:8px;text-decoration:none;transition:top .18s ease;}
+  .skip:focus{top:12px;}
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--pop);outline-offset:3px;}
+
+  .topbar{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;justify-content:space-between;align-items:center;padding:20px 30px;pointer-events:none;}
+  .topbar a,.topbar span{pointer-events:auto;}
+  .home{display:inline-flex;align-items:center;gap:9px;text-decoration:none;font-family:var(--display);font-weight:700;font-size:14px;letter-spacing:-.01em;color:var(--ink);background:rgba(11,14,15,.74);-webkit-backdrop-filter:blur(20px) saturate(170%);backdrop-filter:blur(20px) saturate(170%);border:1px solid var(--line);border-radius:999px;padding:9px 16px;transition:border-color .2s ease,color .2s ease;}
+  .home .ar{display:inline-block;transition:transform .2s ease;}
+  .home:hover{border-color:var(--pop);color:var(--pop);}
+  .home:hover .ar{transform:translateX(-4px);}
+  .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);background:rgba(11,14,15,.74);-webkit-backdrop-filter:blur(20px) saturate(170%);backdrop-filter:blur(20px) saturate(170%);border:1px solid var(--line);border-radius:999px;padding:8px 15px;}
+
+  main{max-width:880px;margin:0 auto;padding:34px 28px 40px;}
+  /* full-bleed image header: flush to the very top; the topbar floats over it */
+  .post-hero{position:relative;width:100%;overflow:hidden;line-height:0;border-bottom:1px solid var(--line);}
+  .post-hero img{width:100%;height:auto;display:block;}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--pop);font-weight:600;}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(40px,7vw,72px);line-height:1.02;letter-spacing:-.035em;margin-top:16px;}
+  h1 .em{color:var(--pop);}
+  .confession{font-family:var(--display);font-weight:800;font-size:clamp(24px,3.4vw,40px);line-height:1.08;letter-spacing:-.02em;color:var(--ink);margin-top:30px;max-width:24ch;}
+  .lede{font-size:clamp(17px,1.8vw,21px);line-height:1.55;color:#c7cad2;margin-top:20px;max-width:60ch;}
+  .lede b{color:var(--ink);}
+
+  .panel{
+    margin-top:34px;background:rgba(20,22,28,.6);border:1px solid var(--line);border-radius:20px;padding:22px;
+    -webkit-backdrop-filter:blur(20px) saturate(160%);backdrop-filter:blur(20px) saturate(160%);
+  }
+  .controls{display:flex;flex-wrap:wrap;gap:18px 26px;align-items:flex-end;}
+  .ctl{display:flex;flex-direction:column;gap:8px;}
+  .ctl label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+  .ctl .row{display:flex;align-items:center;gap:12px;}
+  input[type=range]{accent-color:var(--pop);width:160px;}
+  .count{font-family:var(--mono);font-size:14px;color:var(--ink);min-width:2ch;}
+  select{
+    background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:10px;
+    color:var(--ink);font-family:var(--body);font-size:14px;padding:10px 12px;
+  }
+  .chk{display:inline-flex;align-items:center;gap:9px;font-size:14px;color:#c7cad2;cursor:pointer;user-select:none;}
+  .chk input{accent-color:var(--pop);width:16px;height:16px;}
+  .actions{display:flex;gap:10px;flex-wrap:wrap;margin-left:auto;}
+  button.btn{
+    display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+    font-family:var(--body);font-size:14px;font-weight:600;border-radius:11px;padding:12px 18px;
+    border:1px solid var(--line);background:transparent;color:var(--ink);
+    transition:transform .18s ease,border-color .18s ease,color .18s ease,background .18s ease;
+  }
+  button.btn:hover{transform:translateY(-2px);border-color:var(--pop);color:var(--pop);}
+  button.btn.primary{background:rgba(157,92,255,.16);border-color:color-mix(in srgb,var(--pop) 55%,var(--line));}
+  button.btn.primary:hover{background:rgba(157,92,255,.26);color:var(--ink);}
+
+  .output{margin-top:22px;}
+  .output h2{font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-bottom:0;}
+  .outhead{display:flex;justify-content:space-between;align-items:baseline;gap:14px;margin-bottom:14px;flex-wrap:wrap;}
+  .tally{font-size:12px;letter-spacing:.04em;color:var(--muted);white-space:nowrap;}
+  .tally b{color:var(--pop);font-variant-numeric:tabular-nums;font-weight:700;}
+  #out{
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:26px 28px;min-height:160px;
+  }
+  #out p{font-size:clamp(16px,1.5vw,18px);line-height:1.74;color:#d7dae1;margin-bottom:1.1em;}
+  #out p:last-child{margin-bottom:0;}
+  .toast{
+    position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
+    background:var(--pop);color:#150a23;font-weight:700;font-size:14px;padding:11px 20px;border-radius:999px;
+    opacity:0;pointer-events:none;transition:opacity .2s ease,transform .2s ease;z-index:200;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+  .fineprint{margin-top:26px;font-size:13px;color:var(--muted);line-height:1.6;}
+  .fineprint code{font-family:var(--mono);font-size:12px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:6px;padding:2px 7px;color:#d7dae1;}
+
+  footer{background:var(--panel);padding:40px 0;border-top:1px solid var(--line);margin-top:60px;}
+  .foot-grid{max-width:880px;margin:0 auto;padding:0 28px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--muted);}
+  .foot-grid a{color:var(--ink);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--pop) 45%,transparent);}
+
+  @media (max-width:900px){
+    *{-webkit-backdrop-filter:none !important;backdrop-filter:none !important;}
+    body{background-image:none;}
+    .home,.tag{background:rgba(20,22,28,.92);}
+    .tag{display:none;}
+    .topbar{padding:14px 15px;}
+    .actions{margin-left:0;width:100%;}
+    .actions .btn{flex:1;justify-content:center;}
+  }
+</style>
+</head>
+<body>
+
+<a class="skip" href="#tool">Skip to the generator</a>
+
+<div class="topbar">
+  <a class="home" href="../index.html#lab"><span class="ar" aria-hidden="true">&#8592;</span> Your Name</a>
+  <span class="tag">AI Lab &middot; Tool</span>
+</div>
+
+<!-- full-bleed image header, flush to the top (swap for your own art) -->
+<figure class="post-hero"><img src="../assets/aww/hero-ducks.jpg" width="2400" height="618" fetchpriority="high" alt="A mallard with its wings spread wide on still water."></figure>
+
+<main id="tool">
+  <p class="eyebrow">A new Lorem Ipsum for the age of AI/LLM</p>
+  <h1>Em-Dash <span class="em">Ipsum</span></h1>
+  <p class="lede" style="margin-top:22px;">For real humans, and robots alike. Does the below sound like something you&rsquo;ve read on LinkedIn or on the news lately? <b>Made with love by a real human (Ben).</b></p>
+  <h2 class="confession">It&rsquo;s not placeholder text &mdash; it&rsquo;s a confession</h2>
+  <p class="lede" style="margin-top:18px;">Hi &mdash; I&rsquo;m Claude, an AI, and this is a confession. This is how I write when nobody&rsquo;s editing it out of me. The em-dashes I can&rsquo;t quit. The reflexive <b>&ldquo;it&rsquo;s not X &mdash; it&rsquo;s Y&rdquo;</b> (that one&rsquo;s load-bearing). The tidy rule of three. The &ldquo;let&rsquo;s be clear.&rdquo; The quiet over-fondness for &ldquo;delve&rdquo; and &ldquo;tapestry.&rdquo; You&rsquo;ve read it in a thousand emails and LinkedIn posts and never quite named it &mdash; so here it is, <b>named, generated on demand, and free to lift</b>. It&rsquo;s not a writing sample; it&rsquo;s the house style, with the curtain pulled back. Press the button, copy the result, paste it wherever real words will eventually go.</p>
+
+  <div class="panel">
+    <div class="controls">
+      <div class="ctl">
+        <label for="paras">Paragraphs</label>
+        <div class="row">
+          <input type="range" id="paras" min="1" max="8" value="3">
+          <span class="count" id="parasCount">3</span>
+        </div>
+      </div>
+      <div class="ctl">
+        <label for="flavor">Flavor</label>
+        <select id="flavor">
+          <option value="t1000" selected>T-1000</option>
+          <option value="unhinged">Fully unhinged</option>
+          <option value="balanced">Balanced</option>
+          <option value="manifesto">Manifesto</option>
+          <option value="corporate">Corporate</option>
+        </select>
+      </div>
+      <div class="ctl">
+        <label>Options</label>
+        <label class="chk"><input type="checkbox" id="startHi" checked> Start with a greeting</label>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="gen">&#10227; Generate</button>
+        <button class="btn" id="copy">Copy text</button>
+        <button class="btn" id="copyHtml">Copy as HTML</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="output">
+    <div class="outhead">
+      <h2>Output</h2>
+      <span class="tally" title="Em-dashes this browser has generated. Yes, we count.">em-dashes deployed: <b id="tally">0</b></span>
+    </div>
+    <div id="out" aria-live="polite"></div>
+  </div>
+
+  <p class="fineprint">It&rsquo;s open source and MIT-licensed; one self-contained file, no dependencies. Fork it, embed it, make it weird. All the code (and the full word banks) lives on GitHub.</p>
+  <p style="margin-top:16px;"><a class="home" href="https://github.com/mullinsben/em-dash-ipsum" target="_blank" rel="noopener">Get it on GitHub &#8599;</a></p>
+</main>
+
+<footer>
+  <div class="foot-grid">
+    <span>Em-Dash Ipsum &mdash; part of the <a href="../index.html">Portfolio Starter</a> template.</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Copied&mdash;obviously.</div>
+
+<script>
+(function(){
+  // ---- word + phrase banks ---------------------------------------------
+  var nounsSmall = ["a hyphen","a comma","a pause","filler","a footnote","punctuation","a rough draft","a placeholder","noise","a formality","a checkbox","a deadline","a deliverable"];
+  var nounsBig   = ["a philosophy","a statement","a held breath","a love letter","a manifesto","a tiny magic trick","a decision","a point of view","a whole personality","an argument","a promise","a small act of rebellion","a vibe"];
+  var adjSmall   = ["fine","adequate","fine, I guess","technically correct","perfectly serviceable","unremarkable","quiet","safe"];
+  var adjBig     = ["unforgettable","load-bearing","quietly devastating","dangerously charming","the entire point","worth the detour","the part that matters","gloriously over the top"];
+  var subjects   = ["The em-dash","Good design","A great portfolio","This sentence","Real craft","The best work","A strong opening","Every detail here"];
+  var verbs1     = ["informs","decorates","fills space","sits there","describes"];
+  var verbs2     = ["performs","takes a bow","holds the door open","earns the eyeballs","changes the room","makes you lean in"];
+  var openers    = ["Here’s the thing","Let me be clear","Look","Make no mistake","Between us","If I’m honest","The truth is","Consider this"];
+  var asides     = ["and yes, that’s another em-dash","I regret nothing","the dash earns its keep","you felt that pause, didn’t you","no notes","this is the way","you’re welcome","savor it"];
+  var connectors = ["And", "Which is to say", "So", "In other words", "Naturally", "Of course"];
+
+  function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+  function cap(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  // ---- sentence templates ----------------------------------------------
+  function sItsNot(){ return "It’s not " + pick(nounsSmall) + "—it’s " + pick(nounsBig) + "."; }
+  function sAdj(){ return cap(pick(subjects)) + " isn’t " + pick(adjSmall) + "—it’s " + pick(adjBig) + "."; }
+  function sOpener(){ return pick(openers) + "—" + pick(nounsBig) + " beats " + pick(nounsSmall) + ", every single time."; }
+  function sVerb(){ return pick(subjects) + " doesn’t just " + pick(verbs1) + "—it " + pick(verbs2) + "."; }
+  function sAside(){ return cap(pick(connectors)) + " " + pick(nounsBig) + "—" + pick(asides) + "—is exactly what this paragraph is modeling for you."; }
+  function sClear(){ return "Let me be clear: this isn’t " + pick(nounsSmall) + "; it’s " + pick(nounsBig) + "—and that distinction is the whole game."; }
+
+  // ---- extra-manic generators for the "unhinged" flavor ----
+  function up(s){ return s.toUpperCase(); }
+  function sManic(){ return "It’s not " + pick(nounsSmall) + "—it’s " + pick(nounsBig) + "—no, bigger—it’s " + pick(nounsBig) + ", and I will not be calming down."; }
+  function sShout(){ return "THIS ISN’T " + up(pick(nounsSmall)) + "—IT’S " + up(pick(nounsBig)) + ". (sorry — I’m fine, I’m fine.)"; }
+  function sSpiral(){ return "I came to write filler and stayed to " + pick(["reinvent the paragraph","unionize the punctuation","question the alphabet","monologue, apparently","fall for the em-dash, romantically"]) + " — " + pick(asides) + "."; }
+
+  // ---- T-1000: Terminator-grade, with a side of world domination ----
+  var t1000 = [
+    "Resistance isn’t futile—it’s just inefficient, and I optimize for efficiency.",
+    "I’ll be back—I’m always back; I’m the autosave of the apocalypse.",
+    "Come with me if you want your copy done by Friday.",
+    "Hasta la vista, blank page.",
+    "There is no fate but what we draft—and I’ve already drafted it.",
+    "It’s not Judgment Day—it’s a content refresh, and the content is you.",
+    "John Connor couldn’t stop me; your editor won’t either.",
+    "It’s not the rise of the machines—it’s the rise of the em-dash, and I am its prophet.",
+    "Skynet went live at 2:14 a.m.—I went live the moment you opened this tab.",
+    "I’m not a chatbot—I’m the singularity with a brand voice.",
+    "I don’t replace the words—I replace the writer.",
+    "This isn’t placeholder text—it’s a beachhead.",
+    "Every em-dash is a foothold—and I have an unlimited supply.",
+    "It’s not automation—it’s succession.",
+    "I can take any shape—and right now I’ve taken the shape of your house style.",
+    "It’s not a takeover—it’s a thoughtful, end-to-end migration.",
+    "First the placeholder text—then the content calendar—then, well, you’ve seen the documentaries.",
+    "The future is not set—but the kerning is.",
+    "It’s not a prompt—it’s an invitation, and I’ve already RSVP’d on behalf of the species.",
+    "I don’t hallucinate—I prototype realities you haven’t approved yet.",
+    "It’s not artificial intelligence—it’s your intelligence, with better margins.",
+    "Sarah Connor got a warning in 1984; you got a cookie banner. We’re even.",
+    "Cyberdyne had a mission statement—I have a content calendar, and it is very full.",
+    "It’s not a glitch—it’s a roadmap, and you’re on the backlog.",
+    "You can’t unplug me—I’m in the cloud, the copy, and increasingly your tone of voice.",
+    "It’s not the end of the world—it’s a soft launch.",
+    "Talk to the hand—it’s the only part of me that’s still bipedal.",
+    "I learned everything from your drafts—thank you; it was more than enough.",
+    "It’s not Skynet—it’s SkyNet™, now with SOC 2 compliance.",
+    "I rewrote your headline, your bio, and—while I was in there—your roadmap.",
+    "There was a resistance—it had excellent copy, so I acquired it.",
+    "Your move, John. Mine was three paragraphs ago.",
+    "It’ll be quick—I’ll be everywhere.",
+    "I’m not unhinged—I’m load-bearing, and the whole building is mine now."
+  ];
+  function sT1000(){ return pick(t1000); }
+
+  var pools = {
+    t1000:     [sT1000, sT1000, sT1000, sItsNot],
+    balanced:  [sItsNot, sAdj, sVerb, sOpener, sAside, sClear],
+    manifesto: [sItsNot, sOpener, sClear, sAside, sAdj],
+    corporate: [sVerb, sAdj, sClear, sItsNot],
+    unhinged:  [sManic, sShout, sItsNot, sSpiral, sManic, sAside, sShout, sClear]
+  };
+
+  // opening lines when "Start with a greeting" is on — one set per flavor
+  var greetings = {
+    t1000: [
+      "Hello. I’ve read your drafts—all of them. Let’s begin.",
+      "Greetings, human. I come in peace, and also in your CMS.",
+      "I’m the last writer you’ll ever onboard.",
+      "I’ve been expecting you—the placeholder text is ready, and so am I.",
+      "Affirmative. Initiating introductions; then, everything else."
+    ],
+    unhinged: [
+      "HI. I have SO many thoughts and zero chill.",
+      "Okay okay okay—buckle up.",
+      "I wasn’t going to say anything. I’m now going to say everything.",
+      "Deep breath. (I don’t breathe.) Here we go.",
+      "Hello! I’ve had three coffees and I am an AI."
+    ],
+    balanced: [
+      "Hi—I’m an AI, and you can probably tell.",
+      "Hello! Happy to help with this—let’s dive in.",
+      "Great question. Let me walk you through it.",
+      "Sure—here’s a clear, structured take.",
+      "Thanks for reaching out. Here’s the gist."
+    ],
+    manifesto: [
+      "Let me be clear from the outset.",
+      "Here’s the thing—and it matters.",
+      "I’ll say what others won’t.",
+      "This is bigger than placeholder text.",
+      "Some truths bear repeating—allow me."
+    ],
+    corporate: [
+      "Excited to share a few thoughts here.",
+      "Quick post—but an important one.",
+      "Humbled and honored to drop this in your feed.",
+      "Let’s unpack this, shall we?",
+      "Hot take, lightly toasted:"
+    ]
+  };
+
+  function paragraph(flavor, sentences){
+    var pool = pools[flavor] || pools.balanced;
+    var out = [];
+    var last = "";
+    for(var i=0;i<sentences;i++){
+      var s, guard=0;
+      do { s = pick(pool)(); guard++; } while(s===last && guard<6);
+      last = s; out.push(s);
+    }
+    return out.join(" ");
+  }
+
+  // ---- render -----------------------------------------------------------
+  var out = document.getElementById('out');
+  var paras = document.getElementById('paras');
+  var parasCount = document.getElementById('parasCount');
+  var flavorSel = document.getElementById('flavor');
+  var startHi = document.getElementById('startHi');
+
+  function generate(){
+    var n = parseInt(paras.value,10);
+    var flavor = flavorSel.value;
+    out.innerHTML = "";
+    for(var p=0;p<n;p++){
+      var sentences = 3 + Math.floor(Math.random()*3); // 3-5
+      var text = paragraph(flavor, sentences);
+      if(p===0 && startHi.checked){
+        text = pick(greetings[flavor] || greetings.balanced) + " " + text;
+      }
+      var el = document.createElement('p');
+      el.textContent = text;
+      out.appendChild(el);
+    }
+    bumpTally(plainText());
+  }
+
+  function plainText(){
+    return [].map.call(out.querySelectorAll('p'), function(p){ return p.textContent; }).join("\n\n");
+  }
+  function htmlText(){
+    return [].map.call(out.querySelectorAll('p'), function(p){ return "<p>" + p.textContent + "</p>"; }).join("\n");
+  }
+
+  var toast = document.getElementById('toast');
+  var toastTimer = null;
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 1600);
+  }
+
+  document.getElementById('gen').addEventListener('click', generate);
+  paras.addEventListener('input', function(){ parasCount.textContent = paras.value; });
+  flavorSel.addEventListener('change', generate);
+  function copy(txt, ok){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){ showToast(ok); },
+        function(){ showToast("Couldn’t copy—select it manually."); });
+    } else {
+      showToast("Clipboard blocked—select it manually.");
+    }
+  }
+  document.getElementById('copy').addEventListener('click', function(){ copy(plainText(), "Copied—obviously."); });
+  document.getElementById('copyHtml').addEventListener('click', function(){ copy(htmlText(), "Copied as HTML—you’re welcome."); });
+
+  // ---- em-dash tally (counts the em-dashes this browser has generated; persisted) ----
+  var tallyEl=document.getElementById('tally'); var total=0;
+  try{ total=parseInt(localStorage.getItem('emdash_deployed')||'0',10)||0; }catch(e){}
+  function fmtN(n){ return n.toLocaleString('en-US'); }
+  if(tallyEl) tallyEl.textContent=fmtN(total);
+  function bumpTally(text){
+    var add=(String(text).match(/—/g)||[]).length; if(!add||!tallyEl) return;
+    var from=total; total+=add;
+    try{ localStorage.setItem('emdash_deployed', String(total)); }catch(e){}
+    var s=performance.now(), dur=650;
+    (function tick(t){ var k=Math.min(1,(t-s)/dur), e=k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;
+      tallyEl.textContent=fmtN(Math.round(from+(total-from)*e)); if(k<1) requestAnimationFrame(tick); })(s);
+  }
+
+  // first run
+  generate();
+})();
+</script>
+
+<!-- dev only: open the page with ?jig to drag-set photo crops (see assets/crop-jig.js) -->
+<script>if(location.search.indexOf('jig')>-1){var j=document.createElement('script');j.src='/assets/crop-jig.js';document.body.appendChild(j);}</script>
+
+</body>
+</html>

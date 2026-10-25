@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# /work/ stays crawlable so the per-page `noindex` is actually honored —
+# do not Disallow it, or crawlers can't read the noindex and may index it anyway.
+
+Sitemap: https://example.com/sitemap.xml

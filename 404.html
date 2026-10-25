@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>404 — not here</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<style>
+  :root{--bg:#0b0b0d;--ink:#f3f4f7;--muted:#9498a3;--pop:#3f6fff;--line:#262833;
+    --display:"Archivo",Arial,sans-serif;--body:"Inter",Arial,sans-serif;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
+    background:var(--bg);background-image:radial-gradient(50% 40% at 50% 30%,rgba(63,111,255,.12),transparent 70%);
+    color:var(--ink);font-family:var(--body);padding:32px;-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:520px;}
+  .code{font-family:var(--display);font-weight:800;font-size:clamp(72px,18vw,150px);line-height:1;letter-spacing:-.04em;color:var(--pop);}
+  h1{font-family:var(--display);font-weight:600;font-size:clamp(22px,4vw,32px);letter-spacing:-.02em;margin-top:14px;}
+  p{color:var(--muted);font-size:16px;line-height:1.6;margin-top:16px;}
+  a.home{display:inline-flex;align-items:center;gap:9px;margin-top:30px;text-decoration:none;font-weight:600;font-size:14px;
+    color:var(--ink);border:1px solid var(--line);border-radius:11px;padding:12px 18px;transition:border-color .2s,color .2s,transform .2s;}
+  a.home:hover{border-color:var(--pop);color:var(--pop);transform:translateY(-2px);}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="code">404</div>
+    <h1>It&rsquo;s not lost&mdash;it&rsquo;s just not here.</h1>
+    <p>This page took a held breath and never came back. The dash, however, remains eternal.</p>
+    <a class="home" href="/"><span aria-hidden="true">&#8592;</span> Back home</a>
+  </div>
+</body>
+</html>

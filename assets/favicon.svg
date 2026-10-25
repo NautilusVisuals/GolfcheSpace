@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Portfolio Starter mascot: a calm little duck. Swap for your own favicon. -->
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="80%"><stop offset="0" stop-color="#15171f"/><stop offset="1" stop-color="#0a0b0e"/></radialGradient>
+    <radialGradient id="gl" cx="50%" cy="44%" r="50%"><stop offset="0" stop-color="#3f6fff" stop-opacity="0.34"/><stop offset="1" stop-color="#3f6fff" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="15" fill="url(#bg)"/>
+  <circle cx="33" cy="30" r="26" fill="url(#gl)"/>
+  <g transform="translate(0,2)" stroke="#3f6fff" stroke-opacity="0.55" stroke-width="1.1">
+    <ellipse cx="32" cy="50" rx="19" ry="14" fill="#20242e"/>
+    <ellipse cx="15" cy="48" rx="5.5" ry="7.5" fill="#191c24"/>
+    <ellipse cx="49" cy="48" rx="5.5" ry="7.5" fill="#191c24"/>
+    <circle cx="32" cy="28" r="16" fill="#272c38"/>
+    <circle cx="27.5" cy="13" r="2.5" fill="#272c38"/><circle cx="32" cy="11" r="3" fill="#272c38"/><circle cx="36.5" cy="13" r="2.5" fill="#272c38"/>
+  </g>
+  <g transform="translate(0,2)">
+    <circle cx="25.5" cy="27" r="2.6" fill="#8fa8ff"/><circle cx="38.5" cy="27" r="2.6" fill="#8fa8ff"/>
+    <circle cx="25.5" cy="27" r="1.05" fill="#eaf0ff"/><circle cx="38.5" cy="27" r="1.05" fill="#eaf0ff"/>
+    <ellipse cx="32" cy="34" rx="8" ry="4.5" fill="#E2912F"/>
+  </g>
+</svg>
