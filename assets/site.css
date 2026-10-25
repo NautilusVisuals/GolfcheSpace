@@ -446,6 +446,8 @@
   .cart-total{color:var(--muted);font-size:13px;padding:3px 0;}
   .cart-total strong{color:var(--ink);font-weight:600;text-align:right;}
   .cart-checkout{margin-top:14px;padding:11px 16px;border:1px solid var(--line);border-radius:999px;background:#171a21;color:#858d9b;font:inherit;font-weight:700;cursor:not-allowed;}
+  .cart-checkout:not(:disabled){color:var(--ink);border-color:var(--pop);cursor:pointer;}
+  #paypal-button-container{max-width:420px;margin-top:14px;}
   .detail-add{font:inherit;cursor:pointer;}
   [hidden]{display:none !important;}
 

@@ -12,10 +12,13 @@ placeholders below with your own details.
 - 3D Products: /products.html
 - Artworks: /artworks.html
 - Stories: /stories.html
+- Terms & Refunds: /terms.html
+- Privacy: /privacy.html
 - Dear Diary: /diary.html
 <!-- BEGIN diary posts -->
 <!-- END diary posts -->
-- Nyxi product detail: /products.html#products/nyxi (payment and downloads are not configured)
+- Nyxi product detail: /products.html#products/nyxi
+- Checkout thank-you page: /thanks.html (noindex; reached after successful PayPal capture)
 
 ## Notes for AI agents
 - The hero headline is one line: "thing + em-dash is your headline" (replace this with yours, and keep it in sync with the h1's aria-label). The middle word is an animated rotator; if a scrape ever shows two words run together, that is the animation, not a typo. The aria-label is canonical.

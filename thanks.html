@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<title>Thank you — Golfche Space</title>
+<meta name="description" content="Your PayPal order confirmation and digital delivery information.">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="thanks">
+<a class="skip" href="#main">Skip to content</a>
+<main id="main">
+  <section aria-labelledby="thanks-h"><div class="inner">
+    <div class="sec-head"><div><p class="eyebrow">Order confirmation</p><h1 class="sec-title" id="thanks-h">Thank you</h1></div></div>
+    <div class="detail-copy"><p>Your PayPal payment was captured successfully.</p>
+      <p><strong>PayPal order ID:</strong> <span id="order-id">Loading…</span></p>
+      <p>Check your PayPal email. We send your download link within 24 hours. This delivery instruction is placeholder text; edit it to match your actual fulfillment process.</p>
+      <p>Questions? <a class="email" data-user="Golfcheart" data-domain="gmail.com" href="#">Contact us</a>.</p>
+      <p><a href="index.html">Return to Golfche Space</a></p>
+    </div>
+  </div></section>
+</main>
+<footer id="contact"><div class="inner"><div class="foot-grid"><div class="contact"><p class="big">Golfche Space</p></div><div class="meta"><p><a href="terms.html">Terms &amp; Refunds</a> · <a href="privacy.html">Privacy</a></p></div></div></div></footer>
+<script>var order=new URLSearchParams(location.search).get('order_id');document.getElementById('order-id').textContent=order||'Not available';document.querySelectorAll('.email').forEach(function(a){var address=a.dataset.user+'@'+a.dataset.domain;a.href='mailto:'+address;});</script>
+</body>
+</html>
