@@ -7,6 +7,8 @@ import re
 import shutil
 import subprocess
 import sys
+import os
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent
 DIST = ROOT / "dist"
@@ -21,13 +23,57 @@ def main():
         raise RuntimeError("Refusing to clean an unexpected build directory")
     if DIST.exists():
         shutil.rmtree(DIST)
-    ignored = shutil.ignore_patterns(".git", "dist", "__pycache__", "*.pyc", "works", "functions", "templates", "_content-backup")
+    ignored = shutil.ignore_patterns(
+        ".git", ".github", ".codex", ".aws", ".codex-migration-checkpoint", "dist",
+        "__pycache__", "*.pyc", "*.py", "*.md", ".gitignore", ".env", ".env.*",
+        ".dev.vars", "*.env", "*.pem", "*.key", "wrangler.toml",
+        "works", "templates", "docs", "screenshots",
+        "_content-backup",
+    )
     shutil.copytree(ROOT, DIST, ignore=ignored)
     posts = json.loads((ROOT / "assets" / "diary" / "catalog.js").read_text(encoding="utf-8").split("=", 1)[1].strip().rstrip(";"))
     generate_post_pages(posts)
+    generate_clean_url_pages()
     update_discovery_files(posts)
+    prepare_github_pages()
     print("Built public site in dist/ (works/ source content excluded)")
     return 0
+
+
+def prepare_github_pages():
+    """Make generated output work at GitHub Pages' repository subpath."""
+    (DIST / ".nojekyll").write_text("", encoding="utf-8")
+    repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
+    if not repository or "/" not in repository:
+        return
+    owner, name = repository.split("/", 1)
+    configured_url = os.environ.get("GITHUB_PAGES_URL", "").strip().rstrip("/")
+    if configured_url:
+        parsed_url = urlsplit(configured_url)
+        site_url = f"{parsed_url.scheme}://{parsed_url.netloc}{parsed_url.path.rstrip('/')}"
+        base_path = parsed_url.path.rstrip("/")
+    else:
+        user_site = name.lower() == f"{owner}.github.io".lower()
+        base_path = "" if user_site else f"/{name}"
+        site_url = f"https://{owner}.github.io{base_path}"
+    for path in DIST.rglob("*"):
+        if not path.is_file() or path.suffix.lower() not in (".html", ".xml", ".txt"):
+            continue
+        text = path.read_text(encoding="utf-8")
+        text = text.replace("https://example.com", site_url)
+        if base_path:
+            text = re.sub(r'(["\'])/(assets|diary)(?=/)', rf'\1{base_path}/\2', text)
+            text = text.replace('href="/"', f'href="{base_path}/"')
+        path.write_text(text, encoding="utf-8")
+def generate_clean_url_pages():
+    """Provide index.html routes for pages whose canonical URLs omit .html."""
+    for section in ("thinking", "lab"):
+        for source in sorted((DIST / section).glob("*.html")):
+            route = source.with_suffix("") / "index.html"
+            route.parent.mkdir(parents=True, exist_ok=True)
+            document = source.read_text(encoding="utf-8")
+            document = document.replace('="../', '="../../')
+            route.write_text(document, encoding="utf-8")
 
 
 def generate_post_pages(posts):

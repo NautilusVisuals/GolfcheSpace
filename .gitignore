@@ -17,3 +17,4 @@ __pycache__/
 *.pyc
 .dev.vars
 dist/
+.codex-migration-checkpoint/

@@ -18,15 +18,15 @@ If you are the AI reading this: read the whole thing before editing anything. Th
 | `thinking/*.html` | essays. One file per essay. Two ship as patterns: `the-em-dash-manifesto.html`, `its-not-this-its-that.html` |
 | `lab/the-dashinator.html` | a "making of" write-up. Same chrome as an essay, purple accent. The pattern for any lab page that is mostly words |
 | `lab/em-dash-ipsum.html` | a working tool. Centred single column, no left rail, a `<main id="tool">` and its own script. The pattern for any lab page that is mostly an app |
-| `work/case-study.html` | a password-gated case study, built as a full-screen scroll-snap slide deck in STAR order. The pattern for every case study |
+| `work/case-study.html` | a public case-study template, built as a full-screen scroll-snap slide deck in STAR order |
 | `404.html` | the not-found page |
 | `robots.txt`, `sitemap.xml`, `llms.txt` | discovery files. Edit the domain; keep the structure |
 | `assets/` | shared site styles/scripts, generated catalogues, images, `favicon.svg`, `crop-jig.js` (the dev-only crop tool, below) |
-| `functions/`, `migrations/` | optional Cloudflare Pages API and D1 schema for Dear Diary comments, subscriptions, moderation and email |
+| `.github/workflows/pages.yml` | GitHub Actions workflow that builds and deploys the static site to GitHub Pages |
 | `screenshots/` | README images only. Not used by the site; safe to ignore |
 | `README.md` | the human-facing guide. This file is the agent-facing one. They agree; if they ever disagree, this one is more specific |
 
-Most original essay and lab pages carry their own CSS and JS. Newer catalogue pages use `assets/site.css` and `assets/site.js`. `py build_catalogs.py` refreshes catalogue data; `py build_site.py` also creates deployable `dist/` output and excludes editable `works/` source files. No framework or Node package is required. Dear Diary's API needs Cloudflare Pages Functions and the provider setup in `docs/diary-setup.md`.
+Most original essay and lab pages carry their own CSS and JS. Newer catalogue pages use `assets/site.css` and `assets/site.js`. `py build_catalogs.py` refreshes catalogue data; `py build_site.py` also creates deployable `dist/` output and excludes editable `works/` source files. No framework, Node package, server or API is required. GitHub Actions publishes `dist/` to GitHub Pages.
 
 ---
 
@@ -114,10 +114,10 @@ Every indexable page carries JSON-LD in `<head>`, and it is part of the page, no
 | `thinking/*.html` | `BlogPosting` | `author` and `publisher` reference `#person` |
 | `lab/` write-ups | `CreativeWork` | `author` references `#person` |
 | `lab/` tools | `SoftwareApplication` | `applicationCategory`, `operatingSystem: "Any"`, a free `offers` block |
-| `work/*.html` (gated) | none | `noindex`; schema would advertise a page that is meant to be private |
+| `work/*.html` (case-study templates) | none | `noindex`; keep confidential details out of static pages |
 | `404.html` | none | |
 
-A new page gets the block that matches its type with real values (`headline`/`name`, `description`, `url`, `@id`, `image`, dates), and the block must parse as JSON. Analytics follows the same no-drift rule: if the owner has a snippet, it goes on every page at the `<!-- ===== Analytics` marker, including gated ones.
+A new page gets the block that matches its type with real values (`headline`/`name`, `description`, `url`, `@id`, `image`, dates), and the block must parse as JSON. Analytics follows the same no-drift rule: if the owner has a snippet, it goes on every page at the `<!-- ===== Analytics` marker, including noindex templates.
 
 ### Images carry their size
 
@@ -125,7 +125,7 @@ Every `<img>` has `width` and `height` attributes that match the file's real pix
 
 ### Root-absolute paths
 
-Pages reference `/assets/favicon.svg` with a leading slash. That resolves on any host and on a local server (`python3 -m http.server 8000`), and breaks when the file is opened as `file://`. Test on a server.
+Pages use root-relative asset URLs. The GitHub Pages build prefixes those URLs for project repositories; test through the built `dist/` output on a server, never by opening the file as `file://`.
 
 ### `br.mb`
 
@@ -148,7 +148,7 @@ Do this once, in one pass, and show the owner the list of files you touched.
 5. Identity in JSON-LD: `jobTitle`, `description` on the `Person` in `index.html`; `author`/`publisher` on sub-pages already point at `#person` and need no change.
 6. `<title>` and `<meta name="description">` on every page, plus `og:title` / `og:description`. Write them as real descriptions of the real page, not of the template.
 7. Résumé: replace `assets/resume.pdf` or change the `resume-link` href in `index.html` (or delete the link).
-8. Analytics: each page has an `<!-- ===== Analytics` marker in `<head>`. Paste their snippet there on every page, or leave the marker alone. The case study's `gaGate()` helper fires `gate_view`, `gate_return`, `gate_unlock`, `gate_fail` events once `gtag` exists and is silent otherwise.
+8. Analytics: each page has an `<!-- ===== Analytics` marker in `<head>`. Paste their snippet there on every page, or leave the marker alone.
 9. Copy: everything that reads as Em-Dash Ipsum (the self-aware placeholder text) goes. See *Writing their copy* below before you write a word.
 10. Images: see *Swap an image*. Delete `assets/aww/` only after nothing references it: `grep -rn "assets/aww" --include=*.html .` must come back empty.
 11. Keep the credit line in the `index.html` footer (`<p class="credit">`). It is the one thing the licence asks for. The HTML comment above it says the same to you directly.
@@ -187,25 +187,22 @@ Same as an essay, with these differences:
 
 ### Add a Dear Diary post
 
-1. Copy `templates/diary-template.md` to `works/diary/<slug>.md`. Edit the slug, title, date (`YYYY-MM-DD`), optional excerpt, tags, images (with real dimensions and optional captions), related links, publication status and comment setting.
+1. Copy `templates/diary-template.md` to `works/diary/<slug>.md`. Edit the slug, title, date (`YYYY-MM-DD`), optional excerpt, tags, images (with real dimensions and optional captions), related links and publication status.
 2. Put images under `assets/img/diary/<slug>/`. Write the body below the closing `---` using Markdown headings, paragraphs, emphasis, links and lists.
 3. Keep `published: false` while drafting. Drafts are omitted from the public catalogue, generated pages, sitemap and `llms.txt`; the build excludes the whole `works/` folder.
-4. Publish by setting `published: true`. Run `py build_site.py` (Windows) or `python build_site.py`; preview `dist/` with `py -m http.server 8000 --directory dist`. The build validates catalogues, generates `/diary/<slug>.html`, and updates discovery files. Push the source, images and generated sitemap/`llms.txt` changes for Cloudflare Pages to deploy.
-5. Unpublish by setting the field to false and rebuilding/deploying. Remove a post by deleting its Markdown file and unused images, then rebuild. Configure and use comments, subscriptions and moderation as explained in `docs/diary-setup.md`.
+4. Publish by setting `published: true`. Run `py build_site.py` (Windows) or `python build_site.py`; preview `dist/` with `py -m http.server 8000 --directory dist`. The build validates catalogues, generates `/diary/<slug>.html`, and updates discovery files. Push the source and generated sitemap/`llms.txt` changes; GitHub Actions deploys the static output.
+5. Unpublish by setting the field to false and rebuilding/deploying. Remove a post by deleting its Markdown file and unused images, then rebuild.
 
 ### Add a case study
 
-1. Copy `work/case-study.html` to `work/<slug>.html`. Set `<title>` (`Study title · Owner Name`) and `meta description`; the copy still says "template". Gated pages carry no JSON-LD and no `og:` tags on purpose; do not add them.
-2. **Password.** Ask the owner for the password out of band if you can, or ask them to run `printf 'theirpassword' | shasum -a 256` and paste the hash. If you have a shell, `python3 -c "import hashlib;print(hashlib.sha256(b'theirpassword').hexdigest())"`. Paste the hex into `var HASH = "..."` in the gate script.
-3. **Storage key.** Change `var KEY = "edf_casestudy_unlocked"` to something unique per study (`"cs_<slug>_unlocked"`). The key stores the hash of the unlocked study; with one shared key, unlocking study B re-locks study A on the next visit.
-4. The gate card: `.gate__wm` (owner name), `.gate__title`, `.gate__sub`. Remove the "(Demo password: demo)" line.
-5. Keep `<meta name="robots" content="noindex">`. Gated pages are never listed in `sitemap.xml` and never get a `Disallow` in `robots.txt` (crawlers need to read the page to see the `noindex`).
-6. Slides: one `<section class="page" id="..." data-label="...">` per beat, each **one screenful**. If a beat needs more room, add another slide; do not let a slide overflow, it clips on desktop. The shipped order is Cover, Situation, Task, Action (three slides), Result, Close. Add or remove Action slides freely; keep Cover first and Close last. Each slide after the cover opens with `<p class="idx reveal"><span class="bar"></span> Label</p>` then `<h2 class="slide-h reveal">`.
-7. The cover: `.eyebrow` (company · case study), `<h1>`, `.lead` (the logline), `.meta-row` (role, team, when), `.hookrow` (three headline numbers as `<b>number</b><span>label</span>` pairs). The faint `cover__bg` image is roughly 2400 x 620.
-8. Visual slides: `.twocol` splits text and media; `.ba` is a before/after pair of square-ish images (about 1000 x 830 each) with `<span class="k">Before</span>` / `After` labels.
-9. **Homepage card.** In `index.html` `#work .csgrid`, add or edit an `<a class="cscard" href="work/<slug>.html">` with `.cscard__co`, `.cscard__t`, `.cscard__d`, `.cscard__go`. The grid is two columns. The first real study replaces the "Your Employer" tile; the shipped demo tile and the `.csnote` line about the demo password stay until the owner says to drop the demo, and then both go together along with `work/case-study.html`.
-10. Not in the sitemap. Not in `llms.txt` beyond the existing note that `/work/` is gated.
-11. Verify, including the gate. If you do not know the password, test with a throwaway: temporarily set `HASH` to the SHA-256 of `test` (`9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08`), check that a wrong password shows the error, `test` opens, and a reload stays open, then **restore the owner's hash and grep the file to prove it**.
+1. Copy `work/case-study.html` to `work/<slug>.html`. Set `<title>` (`Study title · Owner Name`) and `meta description`. Keep case studies `noindex` unless the owner explicitly wants them indexed; they carry no JSON-LD.
+2. Case studies are ordinary public static pages. Never add a password prompt or put confidential client information in their HTML, scripts, assets, or Markdown sources. GitHub Pages cannot enforce page-level access control; use a host with real authentication for private material.
+3. Slides: one `<section class="page" id="..." data-label="...">` per beat, each **one screenful**. If a beat needs more room, add another slide; do not let a slide overflow, it clips on desktop. The shipped order is Cover, Situation, Task, Action (three slides), Result, Close. Add or remove Action slides freely; keep Cover first and Close last. Each slide after the cover opens with `<p class="idx reveal"><span class="bar"></span> Label</p>` then `<h2 class="slide-h reveal">`.
+4. The cover: `.eyebrow` (company · case study), `<h1>`, `.lead` (the logline), `.meta-row` (role, team, when), `.hookrow` (three headline numbers as `<b>number</b><span>label</span>` pairs). The faint `cover__bg` image is roughly 2400 x 620.
+5. Visual slides: `.twocol` splits text and media; `.ba` is a before/after pair of square-ish images (about 1000 x 830 each) with `<span class="k">Before</span>` / `After` labels.
+6. **Homepage card.** In `index.html` `#work .csgrid`, add or edit an `<a class="cscard" href="work/<slug>.html">` with `.cscard__co`, `.cscard__t`, `.cscard__d`, `.cscard__go`. The grid is two columns.
+7. Keep noindex case studies out of `sitemap.xml`; `robots.txt` must not block `/work/`, so crawlers can see the `noindex`.
+8. Verify the deck and its dot rail at desktop and phone widths. Do not add password behavior.
 
 ### Scaffold a page for content that arrives later
 
@@ -261,10 +258,6 @@ Homepage: edit `pops` (and `vivid`, which the hero cycles through) in the JS, th
 ### Change the rotating words
 
 Edit the `wordroll` array (headline) and the `navroll` array (status line) at the bottom of `index.html`. For `navroll` also update the first `roll__item` in the sidebar HTML and the `resetTo(...)` string; all three must be the same phrase. Keep headline words to one or two words so the line does not wrap. Keep status lines short enough for a 220px sidebar.
-
-### Change the password on an existing study
-
-Replace `HASH` with the new SHA-256 hex. Visitors who unlocked under the old password are locked out again, since the stored value no longer matches.
 
 ### Self-host the fonts
 
@@ -345,43 +338,28 @@ Have them do this first: `cd` to the site folder, then `ls`, and paste the outpu
      GitHub asks for a username and a password here; the "password" is a **personal access token**, not the account password (GitHub: Settings, Developer settings, Personal access tokens, Tokens (classic), scope `repo`). The owner makes it themselves and never pastes it to you.
 4. Confirm: the repo page on github.com shows `index.html`, `thinking/`, `lab/`, `work/`, `assets/`. If it shows a folder with those inside it, the wrong folder was published; the site files must sit at the repo root.
 
-The `.gitignore` already excludes OS junk. There are no secrets in this site; the case-study password hash is fine to commit (that is what a hash is for).
+The `.gitignore` excludes OS junk and local checkpoints. Do not put secrets in this static site; every published file is public.
 
 ### Step 2: hosting (free, automatic deploys)
 
-**Recommended for Dear Diary: Cloudflare Pages.** This repo uses a small Python build and Pages Functions for the server-side API. D1 stores comments/subscribers, Turnstile protects public forms, Access protects the admin, and Resend sends email. Exact setup is in `docs/diary-setup.md`.
+**GitHub Pages** serves the static site from the `dist/` artifact built by GitHub Actions. Diary entries are static pages; comments, subscriptions, moderation and email are not included.
 
-1. Account at cloudflare.com (free plan).
-2. In the dashboard, **Workers & Pages** (sometimes under **Compute**), **Create**, choose the **Pages** tab, **Connect to Git**, authorise GitHub, pick the repo. (Cloudflare moves these labels around; if the screen talks about "Workers" and offers to import a Git repository for a static site, that is the same thing.)
-3. Build settings: **Framework preset: None**, **Build command: `python build_site.py`**, **Build output directory: `dist`**. Keep the repository root as the build root so Pages can find `functions/` and `migrations/`.
-4. In a minute it reports a URL like `https://<project>.pages.dev`. That is the live site. Have the owner open it and paste the URL to you; check `/thinking/the-em-dash-manifesto` and a case study load from it.
-5. From now on, every push to `main` redeploys. **The first few minutes after a push the old content still shows; that is normal.** Do not debug a deploy that is under ten minutes old.
-6. Limits worth knowing: no single file over 25 MB; keep videos small or host them elsewhere.
+1. In repository **Settings → Pages**, select **GitHub Actions** as the source. The included workflow builds and deploys `dist/` on each push to `main` or `master`.
+2. Wait for the **Deploy to GitHub Pages** workflow in the Actions tab to finish. GitHub shows the live URL under Settings → Pages.
+3. Project sites use `https://<username>.github.io/<repo>/`; the build prefixes local paths for this URL. A user-site repository named `<username>.github.io` uses the root path.
 
 **Alternatives, if they already have one:**
-- **GitHub Pages:** repo **Settings, Pages, Source: Deploy from a branch, Branch: main, folder: / (root)**. The site appears at `https://<username>.github.io/<repo>/`. **That trailing `/<repo>/` breaks this template**: pages reference `/assets/favicon.svg` from the root, so under a sub-path the favicon and any root-absolute path 404. Either name the repo exactly `<username>.github.io` (then the site is at the root and everything works), attach a custom domain (a custom domain on GitHub Pages serves from the root, so the problem disappears), or use Cloudflare. Custom domains are set under Settings, Pages, Custom domain, with the DNS steps below; GitHub's own docs list the four A records for the apex and the `<username>.github.io` CNAME for `www`. GitHub Pages only serves the static output; Dear Diary's Functions API needs a compatible serverless host.
+- **GitHub Pages:** use this repository's Actions workflow. It builds `dist/` and prefixes local paths for the project-site URL.
 - **Netlify:** drag the folder onto app.netlify.com for a one-off, or connect the repo for auto-deploys. Build command empty, publish directory `/`.
 - **Vercel:** import the repo, framework **Other**, no build command, output `.`.
 
 ### Step 3: a custom domain
 
-**Buying one.** Any registrar works: Cloudflare Registrar (at-cost, simplest if hosting is on Cloudflare), Namecheap, Porkbun, Squarespace Domains, GoDaddy. Expect roughly 10 to 20 USD a year for a `.com`; novelty endings cost more and some spike at renewal, so have the owner check the **renewal** price, not the first-year promo. Buy it with auto-renew on; a lapsed domain is the most common way a personal site dies.
+**Buying one.** Any registrar works: Namecheap, Porkbun, Squarespace Domains, GoDaddy or Cloudflare Registrar. Check the renewal price and enable auto-renew.
 
-**Connecting it.** Two ways. Ask the owner one question first: **does this domain already do anything** (email at that domain, another site, anything)? If yes, write down every existing DNS record before touching anything, because route A replaces the whole table.
+**Connecting it.** In the GitHub repository, open **Settings → Pages → Custom domain**, enter the domain, and save. GitHub displays the DNS records to add at the registrar. Preserve existing mail and verification records. Wait for DNS verification and HTTPS provisioning in Settings → Pages.
 
-**Route A, move DNS to Cloudflare (recommended when the domain is new or does nothing else):**
-1. Cloudflare dashboard, **Add a site** (or **Onboard a domain**), type the domain, pick the Free plan. Cloudflare scans existing records and shows two **nameservers**, like `ada.ns.cloudflare.com` and `bob.ns.cloudflare.com`. Have the owner paste them to you.
-2. At the registrar, find **Nameservers** (sometimes under DNS settings, "Custom nameservers", or "Use custom DNS"). Replace whatever is there with the two from Cloudflare. Save. The registration itself stays at the registrar; only the lookup table moved.
-3. Back in Cloudflare, open the Pages project, **Custom domains**, **Set up a custom domain**, enter `janedoe.com`; Cloudflare adds the record itself. Add `www.janedoe.com` the same way. Cloudflare redirects one to the other; pick the apex as primary unless the owner prefers `www`.
-4. Wait. Nameserver changes usually take minutes, can take up to 48 hours. Cloudflare emails when the domain is active. `https://janedoe.com` should then load the site with a padlock; SSL is automatic.
-
-**Route B, keep DNS at the registrar (when email or another site already lives there):**
-1. In the Pages project, **Custom domains**, add `www.janedoe.com`. Cloudflare shows a **CNAME** record to create: name `www`, target `<project>.pages.dev`.
-2. At the registrar's DNS page, add that CNAME. Leave every existing record alone.
-3. For the apex (`janedoe.com` without www), registrars differ: some allow a CNAME or "ALIAS/ANAME" at the apex (add it, target `<project>.pages.dev`); others only allow **A** records, in which case set up a redirect from the apex to `www` using the registrar's "forwarding" feature, and tell people the site is `www.janedoe.com`. Ask the owner what options the DNS page shows and choose from that.
-4. Same waiting rules; same automatic SSL once the record resolves.
-
-**Verify from your side** once they say it is done: `curl -sI https://janedoe.com | head -5` should return `200` (or a `301` to www, then `200`). A DNS checker site (whatsmydns.net) shows whether the new records have propagated worldwide.
+**Verify from your side** once they say it is done: request the custom domain and confirm it serves the Pages site over HTTPS.
 
 ### Step 4: after the domain works
 
@@ -390,7 +368,7 @@ The site still thinks it lives at `example.com`. Do the domain pass from *Make i
 1. **Google Search Console** (search.google.com/search-console): add the domain as a **Domain** property; it gives a TXT record to add in DNS (Cloudflare or registrar, wherever DNS lives now). Once verified, **Sitemaps**, submit `https://janedoe.com/sitemap.xml`. Indexing takes days to weeks; that is normal.
 2. **Share cards:** paste the URL into a card debugger (LinkedIn Post Inspector, opengraph.xyz) and check the image and title; if a stale card shows, the debugger has a re-scrape button.
 3. **Analytics**, if they want it: GA4 or Plausible snippet on every page at the `<!-- ===== Analytics` marker. Plausible is the simpler, cookie-free option.
-4. Keep the `.pages.dev` URL private-ish: it keeps working as a preview, which is handy, but share the real domain.
+4. The custom domain becomes the public URL after DNS and HTTPS are ready; GitHub keeps the `github.io` address as a redirect.
 
 ### Updating the site later
 
@@ -402,9 +380,9 @@ Edit, commit, push; the host redeploys. A change to any `.html` file shows withi
 |---|---|---|
 | Site works at `.pages.dev` but the domain shows a registrar parking page or "DNS_PROBE_FINISHED_NXDOMAIN" | nameservers not changed yet, or still propagating | check the registrar saved the change; wait; whatsmydns.net |
 | Padlock missing or "not secure" on the domain | certificate still being issued (minutes), or the domain is not added under Custom domains | add it in the host; wait 15 minutes |
-| Favicon, images or fonts 404 but the homepage loads | site is served from a sub-path (GitHub Pages `/<repo>/`) and the root-absolute `/assets/` paths miss | rename the repo to `<username>.github.io` or move to Cloudflare |
+| Favicon, images or fonts 404 but the homepage loads | Pages build did not receive the repository path prefix | check that the included Actions workflow deployed the latest commit |
 | Pushed a change, site unchanged | deploy still running, or browser cache | wait ten minutes, hard refresh, check the host's deployments list for a red X |
-| Deploy fails with "asset too large" | a file over 25 MB on Cloudflare | shrink it or host it elsewhere |
+| Deploy fails | open the failed GitHub Actions run and read the build or deploy step error |
 | Email at the domain stopped working after setup | route A replaced the MX records | re-add the MX and any TXT (SPF, DKIM) records that were written down before the move |
 | Owner's push rejected, "failed to push some refs" | the repo on GitHub is ahead (someone edited on the website, or a host bot committed) | `git pull --no-edit` then push again |
 
@@ -422,14 +400,14 @@ Edit, commit, push; the host redeploys. A change to any `.html` file shows withi
 - **Desktop layout is finished. Mobile lives in the media query.** Every page ends its `<style>` with `@media (max-width:900px){ ... }`. Phone fixes go there and only there, so desktop stays provably untouched. On phones: the sidebar becomes a hamburger, text and images stack in one column, nothing sits side by side.
 - **No `background-attachment:fixed` and no `backdrop-filter` under 900px.** Both freeze scrolling on some Android devices. The mobile layer already switches them off; do not add new ones.
 - **`overflow-x:clip`, not `hidden`, on `html` and `body`.** `hidden` breaks sticky positioning and can also freeze mobile scroll.
-- **Keep the accessibility layer:** the `.skip` link, `:focus-visible` rings, `aria-current` on the active nav item, `aria-labelledby` on sections, `aria-label` on the rails, `role="alert"` on the gate error, and the `prefers-reduced-motion` blocks that turn off the reveals, the parallax and the rolls. If something you add moves, it needs a reduced-motion fallback.
+- **Keep the accessibility layer:** the `.skip` link, `:focus-visible` rings, `aria-current` on the active nav item, `aria-labelledby` on sections, `aria-label` on the rails, and the `prefers-reduced-motion` blocks that turn off the reveals, the parallax and the rolls. If something you add moves, it needs a reduced-motion fallback.
 - **One `<h1>` per page.** Section headings are `<h2>`, in-section headings `<h3>`.
 - **Keep `width`/`height` on images and `rel="noopener"` on `target="_blank"` links.**
-- **Gated pages keep `noindex`, stay out of the sitemap, and never get a `robots.txt` Disallow.**
-- **Keep the stack small.** No framework or Node package is required. Python's standard library builds static output. Pages Functions run the API; provider credentials belong in Cloudflare settings, not frontend files.
+- **Noindex case-study templates stay out of the sitemap, and `/work/` is never blocked in `robots.txt`. Static pages cannot protect confidential work.**
+- **Keep the stack small.** No framework or Node package is required. Python's standard library builds static output for GitHub Pages.
 - **The attribution credit in the homepage footer stays.**
 - **The headline lock holds:** `aria-label` on the `<h1>`, empty second `roll__item`, crawler note, `llms.txt` line, all in sync. Never put text in the second roll item "so it shows without JS"; that is the exact bug it prevents.
-- **Every indexable page has schema; every gated page has none.** No new page ships without its JSON-LD block, and no page ships with a block that fails to parse.
+- **Every indexable page has schema; noindex case-study templates have none.** No new page ships without its JSON-LD block, and no page ships with a block that fails to parse.
 - **Edit by anchoring on a unique string, never by line number**, and never retype a file from tool output that may have been truncated. Read, modify, write. Keep diffs small and reviewable; do not reformat or reindent a file you were asked to edit one paragraph of.
 
 ---
@@ -440,12 +418,12 @@ After any change:
 
 1. Serve it: `python3 -m http.server 8000` from the repo root, open `http://localhost:8000/`. Not `file://`.
 2. Parse it. No unclosed tags, no `<a>` nested in `<a>`, every `<section>` has its closing tag. A quick check: `python3 -c "import html.parser,sys; html.parser.HTMLParser().feed(open(sys.argv[1]).read())" <file>` catches gross breakage; a browser's DOM inspector catches the rest.
-3. JSON-LD still parses: extract each `<script type="application/ld+json">` block and run it through a JSON parser. Gated pages have none; that is correct.
+3. JSON-LD still parses: extract each `<script type="application/ld+json">` block and run it through a JSON parser. Noindex case-study templates have none; that is correct.
 4. Render at 1440 x 900 and at 390 x 844 (phone). Screenshot full page. Look at it. Things to look for: a card that is invisible (a `reveal` that never fired), text touching an edge, a hero with the subject hidden under the headline, a slide that overflows its screen.
 5. No horizontal scroll: in the console, `document.documentElement.scrollWidth === window.innerWidth` must be `true` at both sizes.
 6. Every link resolves: `grep -o 'href="[^"]*"'` on the changed file, and open each internal one. Every essay-rail `#id` has a matching section.
 7. If you touched the homepage: scroll it end to end and watch the sidebar; each section lights its link and shifts the accent.
-8. If you touched a case study: every slide gets a dot; the gate blocks, unlocks, and stays unlocked on reload.
+8. If you touched a case study: every slide gets a dot and the deck navigates at desktop and phone widths.
 9. Before launch, the placeholder grep from *Make it theirs* step 12 returns nothing.
 10. If you touched the headline or either roll: fetch `index.html` as text with JS off (or `curl` it) and read the `<h1>`; it must read as the clean canonical line, and it must equal the `aria-label` and the `llms.txt` line.
 
@@ -469,17 +447,17 @@ The shipped copy is Em-Dash Ipsum: placeholder text that is deliberately overrun
 ## Working with the owner
 
 - Say what you are about to touch before you touch it, as a list of files.
-- Ask before deleting anything that is not placeholder, and before changing the password, the domain, the accent system or the section list.
+- Ask before deleting anything that is not placeholder, and before changing the domain, the accent system or the section list.
 - When a request is ambiguous (which essay, which card, which image slot), ask one question, not five.
 - If you have a terminal, you can run the local server and the checks yourself. Commit and push only if the owner has asked you to; otherwise hand them the commands.
-- Never ask the owner to paste a case-study password into chat if a hash will do.
+- Never add client-side password checks to static pages; they cannot protect private content.
 
 ### Prompts that work
 
 For the owner, so they know what to ask for:
 
 - "Add an essay called *Title*. Here's the text. Use the manifesto page as the pattern, add the card, and update the sitemap."
-- "Make a case study for *Company* from these notes. Password is in the hash I'll paste. Six slides."
+- "Make a public case study for *Company* from these notes. Six slides."
 - "Swap the homepage hero for `assets/me.jpg` (1400 x 2400). Keep the crop on the right."
 - "Rename AI Lab to Projects everywhere it shows, keep the URLs."
 - "Replace all the placeholder copy on the homepage with this. Don't touch the sub-pages yet."
@@ -501,7 +479,7 @@ The owner will ask why their AI just lost its mind. When they do, tell them: it 
 ## If you only remember three things
 
 1. Duplicate the nearest page. Never write one from scratch.
-2. Every page change has a homepage card, a sitemap line and an `llms.txt` line that go with it. Gated pages get the card only.
+2. Every page change has a homepage card, a sitemap line and an `llms.txt` line that go with it. Noindex case-study templates get the card only.
 3. Render it at desktop and phone and look, before you say it is done.
 
 (And quack. Profusely. See above.)

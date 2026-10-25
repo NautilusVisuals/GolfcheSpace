@@ -243,7 +243,7 @@ def build_diary():
             if slug in slugs:
                 raise ValueError(f"duplicate slug {slug!r}")
             slugs.add(slug)
-            for key in ("title", "date", "tags", "images", "published", "commentsEnabled"):
+            for key in ("title", "date", "tags", "images", "published"):
                 if key not in data:
                     raise ValueError(f"missing required field {key!r}")
             if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(data["date"])):
@@ -252,8 +252,8 @@ def build_diary():
                 date_type.fromisoformat(str(data["date"]))
             except ValueError:
                 raise ValueError("date must be a real calendar date")
-            if not isinstance(data["published"], bool) or not isinstance(data["commentsEnabled"], bool):
-                raise ValueError("published and commentsEnabled must be true or false")
+            if not isinstance(data["published"], bool):
+                raise ValueError("published must be true or false")
             tags = data.get("tags") or []
             if not isinstance(tags, list) or any(tag not in DIARY_TAGS for tag in tags):
                 raise ValueError("tags must be a list of supported Diary tags")

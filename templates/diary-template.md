@@ -8,7 +8,6 @@ tags:
 images: []
 relatedLinks: []
 published: false
-commentsEnabled: true
 ---
 
 Write your post here in Markdown. Use blank lines between paragraphs.

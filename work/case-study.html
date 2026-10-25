@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- TEMPLATE — gated case study, built as a SLIDE DECK (scroll-snap).
+<!-- TEMPLATE — public case study, built as a SLIDE DECK (scroll-snap).
      Structure: a cover slide, then one full-screen ".page" per STAR beat
      (Situation · Task · Action ×3 · Result · Close). Navigation is the right-side
      dot rail (auto-built from the slides). Section labels use the small ".idx"
@@ -9,19 +9,17 @@
        needs more room, add another <section class="page"> slide rather than
        overflowing (slides clip on desktop to stay clean).
 
-     The gate is a lightweight client-side SHA-256 check — NOT real security.
-     CHANGE THE PASSWORD: paste the SHA-256 hex of your password into HASH below.
-         printf 'yourpassword' | shasum -a 256
+     GitHub Pages is static hosting. Do not put confidential client details here.
 -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>A gated case study &middot; Your Name</title>
-<meta name="description" content="Password-protected STAR slide-deck case-study template for Portfolio Starter.">
+<title>Case Study Template &middot; Your Name</title>
+<meta name="description" content="A public STAR slide-deck case-study template for Portfolio Starter.">
 
-<!-- ===== Analytics: drop your snippet here. (Gate funnel events wired below — gaGate.) ===== -->
+<!-- ===== Analytics: drop your snippet here ===== -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +30,7 @@
 <style>
   :root{
     --bg:#0a0d10;--panel:#13161c;--ink:#f3f4f7;--muted:#9498a3;--line:#262833;
-    --accent:#3f6fff;--pop:#3f6fff;--red:#3f6fff;
+    --accent:#3f6fff;--pop:#3f6fff;
     --display:"Archivo","Helvetica Neue",Arial,sans-serif;
     --body:"Inter","Helvetica Neue",Arial,sans-serif;
   }
@@ -43,22 +41,6 @@
   .skip{position:fixed;left:12px;top:-60px;z-index:300;background:var(--accent);color:#08111f;font-weight:600;padding:11px 18px;border-radius:8px;text-decoration:none;transition:top .18s ease;}
   .skip:focus{top:12px;}
   a:focus-visible,button:focus-visible{outline:3px solid var(--pop);outline-offset:3px;}
-
-  /* ---- velvet-rope gate ---- */
-  .gate{position:fixed;inset:0;z-index:2000;display:flex;align-items:center;justify-content:center;background:#0a0d10;padding:24px;}
-  .gate--hidden{display:none;}
-  .gate__card{max-width:460px;width:100%;text-align:center;}
-  .gate__wm{font-family:var(--display);font-weight:800;font-size:20px;letter-spacing:-.02em;color:var(--ink);}
-  .gate__eyebrow{margin-top:22px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--red);font-weight:600;}
-  .gate__title{font-family:var(--display);font-weight:800;font-size:clamp(26px,5vw,40px);line-height:1.04;letter-spacing:-.03em;margin-top:10px;color:var(--ink);}
-  .gate__sub{margin-top:16px;color:var(--muted);font-size:15px;line-height:1.55;}
-  .gate__sub b{color:var(--ink);font-weight:600;}
-  .gate__form{margin-top:26px;display:flex;gap:10px;}
-  .gate__input{flex:1;min-width:0;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:11px;padding:13px 16px;color:var(--ink);font-size:16px;font-family:var(--body);}
-  .gate__input:focus{outline:none;border-color:var(--red);}
-  .gate__btn{background:var(--red);color:#fff;border:0;border-radius:11px;padding:0 22px;font-weight:700;font-size:15px;cursor:pointer;font-family:var(--body);}
-  .gate__err{margin-top:14px;color:#ff6b6b;font-size:13px;min-height:18px;}
-  .gate__hint{margin-top:8px;font-size:12px;color:var(--muted);}
 
   /* ---- topbar ---- */
   .topbar{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;justify-content:space-between;align-items:center;padding:20px 30px;pointer-events:none;}
@@ -165,53 +147,11 @@
 </head>
 <body>
 
-<!-- ===== velvet-rope gate ===== -->
-<div class="gate" id="gate">
-  <div class="gate__card">
-    <div class="gate__wm">Your Name</div>
-    <p class="gate__eyebrow">Private case study</p>
-    <h1 class="gate__title">A gated case study</h1>
-    <p class="gate__sub">This one&rsquo;s by invitation. Enter the password to take a look. <br>(Demo password: <b>demo</b>)</p>
-    <form class="gate__form" id="gateForm">
-      <input class="gate__input" id="gatePw" type="password" placeholder="Password" autocomplete="off" aria-label="Password" autofocus>
-      <button class="gate__btn" type="submit">Enter</button>
-    </form>
-    <p class="gate__err" id="gateErr" role="alert"></p>
-    <p class="gate__hint">It&rsquo;s a light client-side gate&mdash;good for &ldquo;ask me for access,&rdquo; not for secrets.</p>
-  </div>
-</div>
-
-<script>
-(function(){
-  // SHA-256 of "demo". Replace with the hash of YOUR password (see top-of-file note).
-  var HASH = "2a97516c354b68848cdbd8f54a226a0a55b21ed138e207ad6c5cbb9c00aa5aea";
-  var KEY  = "edf_casestudy_unlocked";
-  var gate = document.getElementById('gate');
-  var root = document.documentElement;
-  function lock(){ root.style.overflow = 'hidden'; }
-  function open(){ gate.classList.add('gate--hidden'); root.style.overflow = ''; window.scrollTo(0,0); }
-  lock();
-  function gaGate(ev){ try{ if(window.gtag) gtag('event', ev, {study: document.title}); }catch(_){} }
-  try{ if(localStorage.getItem(KEY) === HASH){ gaGate('gate_return'); open(); } else { gaGate('gate_view'); } }catch(e){ gaGate('gate_view'); }
-  async function sha256(s){
-    var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
-    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
-  }
-  var form = document.getElementById('gateForm'), err = document.getElementById('gateErr');
-  form.addEventListener('submit', async function(e){
-    e.preventDefault();
-    var h = await sha256(document.getElementById('gatePw').value);
-    if(h === HASH){ try{ localStorage.setItem(KEY, HASH); }catch(e){} gaGate('gate_unlock'); open(); }
-    else { gaGate('gate_fail'); err.textContent = "Not quite—check the password and try again."; }
-  });
-})();
-</script>
-
 <a class="skip" href="#cover">Skip to content</a>
 
 <div class="topbar">
   <a class="home" href="../index.html#work"><span class="ar" aria-hidden="true">&#8592;</span> Your Name</a>
-  <span class="tag">Case study &middot; Private</span>
+  <span class="tag">Case study &middot; Public template</span>
 </div>
 
 <!-- right-side dot rail — built by JS from every .page[data-label] -->
@@ -223,7 +163,7 @@
   <div class="page__glow" aria-hidden="true"></div>
   <div class="page__inner">
     <p class="eyebrow reveal">Placeholder Co &middot; Case study</p>
-    <h1 class="reveal">A gated case study</h1>
+    <h1 class="reveal">A case study template</h1>
     <p class="lead reveal">One line on what you did and why it mattered &mdash; the logline that makes someone want the next slide.</p>
     <div class="meta-row reveal">
       <span>Role: <b>Your Title</b></span>
@@ -248,7 +188,7 @@
     <p class="idx reveal"><span class="bar" aria-hidden="true"></span> Situation</p>
     <h2 class="slide-h reveal">Where things stood</h2>
     <p class="body reveal">Set the scene. What was the landscape, what was broken, and why did it matter <em>now</em>? It&rsquo;s not a status update&mdash;it&rsquo;s the tension the rest of the deck resolves.</p>
-    <p class="body reveal">Because this study is gated, you can be more candid than on the public site&mdash;real context, real stakes, the messy bits. The gate is convenience, not a vault.</p>
+    <p class="body reveal">This static page is public. Keep private client details out of it; GitHub Pages cannot enforce page-level passwords.</p>
     <p class="pullquote reveal">Name the stakes first&mdash;everything after lands harder.</p>
   </div>
 </section>
