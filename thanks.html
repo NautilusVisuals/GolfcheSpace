@@ -13,10 +13,13 @@
 <main id="main">
   <section class="order-confirmation" aria-labelledby="thanks-h"><div class="inner">
     <div class="order-confirmation__card">
-      <span class="order-confirmation__icon" aria-hidden="true">&#10003;</span>
-      <p class="eyebrow">Order confirmation</p>
-      <h1 class="sec-title" id="thanks-h">Thank you for your order</h1>
-      <p class="order-confirmation__message">Your payment was captured by PayPal.</p>
+      <div class="order-confirmation__heading">
+        <span class="order-confirmation__icon" aria-hidden="true">&#10003;</span>
+        <div><p class="eyebrow">Order confirmation</p>
+          <h1 class="sec-title" id="thanks-h">Thank you for your order</h1>
+          <p class="order-confirmation__message">Your payment was captured by PayPal.</p>
+        </div>
+      </div>
       <div class="order-reference"><span>PayPal order reference</span><strong id="order-id">Loading&hellip;</strong></div>
       <p class="order-confirmation__note">Your product will be sent to the email address associated with your PayPal account within 24 hours. Keep your PayPal receipt and contact us with your order reference if you need help.</p>
       <div class="order-confirmation__actions">
