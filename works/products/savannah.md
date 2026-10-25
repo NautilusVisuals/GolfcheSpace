@@ -5,15 +5,15 @@ name: Savannah For Genesis 9
 category: characters
 badge: NEW
 thumbnail:
-  src: assets/products/savannah/S5.jpg
-  alt: Savannah character promotional render.
-  width: 1000
-  height: 1552
+  src: assets/products/savannah/cover.jpg
+  alt: Savannah promotional cover for Genesis 9.
+  width: 400
+  height: 400
 mainImage:
-  src: assets/products/savannah/S5.jpg
-  alt: Savannah character promotional render.
-  width: 1000
-  height: 1552
+  src: assets/products/savannah/cover.jpg
+  alt: Savannah promotional cover for Genesis 9.
+  width: 400
+  height: 400
 images:
   - src: assets/products/savannah/S1.jpg
     alt: Savannah seated in a bright studio setting.

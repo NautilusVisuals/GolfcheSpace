@@ -5,15 +5,15 @@ name: Nyxi For Genesis 9
 category: characters
 badge: null
 thumbnail:
-  src: assets/products/nyxi/03.webp
-  alt: Nyxi character in a dark fantasy look.
-  width: 1800
-  height: 1800
+  src: assets/products/nyxi/cover.png
+  alt: Nyxi promotional cover for Genesis 9.
+  width: 2788
+  height: 2788
 mainImage:
-  src: assets/products/nyxi/02.webp
-  alt: Nyxi character promotional render.
-  width: 1160
-  height: 1800
+  src: assets/products/nyxi/cover.png
+  alt: Nyxi promotional cover for Genesis 9.
+  width: 2788
+  height: 2788
 images:
   - src: assets/products/nyxi/01.webp
     alt: Nyxi character and close-up material previews.
@@ -37,8 +37,8 @@ images:
     height: 1800
 shortDescription: A Genesis 9 character package with body, head, full-character, nail, brow, and fang morphs and presets.
 description: Nyxi is a custom Genesis 9 character package. The supplied archive contains character morphs and apply/removal presets, plus skin, eye, makeup, lip, nail, and heart material files with their texture maps. The archive includes no separate product description or license document.
-price: {"amount":20.00,"currency":"USD"}
-salePrice: 20,00
+price: {"amount":26.00,"currency":"USD"}
+salePrice: null
 compatibility: The archive paths identify Genesis 9 content and use DAZ Studio .duf and .dsf files. No minimum DAZ Studio version is stated in the supplied archive.
 compatibilityLabel: Genesis 9
 features:
