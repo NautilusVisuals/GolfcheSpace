@@ -447,6 +447,10 @@
   .cart-total strong{color:var(--ink);font-weight:600;text-align:right;}
   .cart-checkout{margin-top:14px;padding:11px 16px;border:1px solid var(--line);border-radius:999px;background:#171a21;color:#858d9b;font:inherit;font-weight:700;cursor:not-allowed;}
   .cart-checkout:not(:disabled){color:var(--ink);border-color:var(--pop);cursor:pointer;}
+  .cart-toast{position:fixed;z-index:1000;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));display:grid;gap:4px;width:min(360px,calc(100vw - 32px));padding:16px 18px;border:1px solid rgba(157,92,255,.65);border-radius:12px;background:rgba(15,14,22,.97);box-shadow:0 14px 44px rgba(0,0,0,.48),0 0 24px rgba(139,0,255,.15);color:var(--muted);font-size:13px;}
+  .cart-toast[hidden]{display:none;}
+  .cart-toast strong{color:var(--soft-lavender);font-size:14px;}
+  .cart-toast span:last-child{color:var(--ink);font-weight:700;}
   #paypal-button-container{max-width:420px;margin-top:14px;}
   .detail-add{font:inherit;cursor:pointer;}
   [hidden]{display:none !important;}

@@ -2,7 +2,7 @@ window.GolfcheProducts = [
   {
     "id": "nyxi",
     "slug": "nyxi",
-    "name": "Nyxi",
+    "name": "Nyxi For Genesis 9",
     "category": "characters",
     "badge": null,
     "thumbnail": {
@@ -51,7 +51,10 @@ window.GolfcheProducts = [
     ],
     "shortDescription": "A Genesis 9 character package with body, head, full-character, nail, brow, and fang morphs and presets.",
     "description": "Nyxi is a custom Genesis 9 character package. The supplied archive contains character morphs and apply/removal presets, plus skin, eye, makeup, lip, nail, and heart material files with their texture maps. The archive includes no separate product description or license document.",
-    "price": null,
+    "price": {
+      "amount": 20.0,
+      "currency": "USD"
+    },
     "salePrice": null,
     "compatibility": "The archive paths identify Genesis 9 content and use DAZ Studio .duf and .dsf files. No minimum DAZ Studio version is stated in the supplied archive.",
     "compatibilityLabel": "Genesis 9",

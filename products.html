@@ -146,9 +146,10 @@
             <p class="cart-total"><span>Total</span><strong id="cart-total">—</strong></p>
           </div>
           <button class="cart-checkout" type="button" disabled aria-describedby="checkout-status">Pay with PayPal</button>
-          <p class="cart-status" id="checkout-status">Secure checkout with PayPal. Checkout requires product prices and your PayPal Client ID to be configured.</p>
+          <p class="cart-status" id="checkout-status">Checkout is unavailable until PayPal is configured with a valid public Client ID.</p>
         </div>
       </details>
+      <div class="cart-toast" id="cart-toast" role="status" aria-live="polite" aria-atomic="true" hidden></div>
     </div>
   </section>
 </main>
