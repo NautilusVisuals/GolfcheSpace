@@ -37,8 +37,8 @@ images:
     height: 1800
 shortDescription: A Genesis 9 character package with body, head, full-character, nail, brow, and fang morphs and presets.
 description: Nyxi is a custom Genesis 9 character package. The supplied archive contains character morphs and apply/removal presets, plus skin, eye, makeup, lip, nail, and heart material files with their texture maps. The archive includes no separate product description or license document.
-price: null
-salePrice: null
+price: 20.00
+salePrice: 20.00
 compatibility: The archive paths identify Genesis 9 content and use DAZ Studio .duf and .dsf files. No minimum DAZ Studio version is stated in the supplied archive.
 compatibilityLabel: Genesis 9
 features:
