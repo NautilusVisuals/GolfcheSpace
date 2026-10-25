@@ -1,0 +1,146 @@
+<!doctype html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  EM-DASH FOLIO — a free, open-source portfolio template               ║
+  ║  Single-page scroller + essay / lab / gated-case-study sub-pages.     ║
+  ║                                                                      ║
+  ║  TO MAKE IT YOURS:                                                    ║
+  ║   1. Find-and-replace  "Your Name"   with your name.                  ║
+  ║   2. Replace the Em-Dash Ipsum copy (the silly em-dash-loving filler) ║
+  ║      with your own words.                                             ║
+  ║   3. Swap the cute-animal placeholders in /assets/aww for real art.   ║
+  ║   4. Update the email + social links (search: data-user / example.com)║
+  ║   5. Drop your analytics snippet where marked in <head>.             ║
+  ║  License: MIT. Credit appreciated, never required. — see README.md   ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dear Diary — Golfche Space</title>
+<meta name="description" content="Work-in-progress renders, character updates, art and notes from Golfche Space.">
+<meta property="og:title" content="Dear Diary — Golfche Space">
+<meta property="og:description" content="Work-in-progress renders, character updates, art and notes from Golfche Space.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://example.com/diary.html">
+<meta property="og:image" content="https://example.com/assets/og/home.jpg">
+<link rel="canonical" href="https://example.com/diary.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://example.com/assets/og/home.jpg">
+
+<!-- ===== Analytics =====
+     Left intentionally blank. Drop your own snippet here (GA4, Plausible,
+     Fathom, etc.). If you use GA4, paste the gtag.js snippet and remember to
+     allow googletagmanager.com in any Content-Security-Policy you add. -->
+
+<!-- ===== Structured data (JSON-LD) — edit the placeholders, then keep it ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {"@type":"WebPage","@id":"https://example.com/diary.html#webpage","url":"https://example.com/diary.html","name":"Dear Diary — Golfche Space","description":"Work-in-progress renders, character updates, art and notes from Golfche Space.","isPartOf":{"@id":"https://example.com/#website"},"about":{"@id":"https://example.com/#person"}},
+    {
+      "@type": "Person",
+      "@id": "https://example.com/#person",
+      "name": "Your Name",
+      "url": "https://example.com",
+      "jobTitle": "What you do",
+      "description": "One or two sentences about you. Em-dashes optional — but encouraged.",
+      "sameAs": []
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://example.com/#website",
+      "url": "https://example.com",
+      "name": "Your Name",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://example.com/#person" }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="diary">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<button class="navtoggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+  <span class="bars" aria-hidden="true"></span>
+</button>
+
+<!-- ====== floating, borderless liquid-glass left nav ====== -->
+<nav class="sidebar" id="primary-nav" aria-label="Primary">
+  <a class="wordmark" href="index.html">
+    <span class="name">Golfche</span>
+  </a>
+  <p class="status">
+    <span class="dot" aria-hidden="true"></span>
+    <span class="status-copy">3D Artist • Character Creator • Dreamer • Writer</span>
+  </p>
+
+  <div class="nav">
+    <a href="index.html" data-page="home"><span class="led" aria-hidden="true"></span><span>Home</span></a>
+    <a href="products.html" data-page="products"><span class="led" aria-hidden="true"></span><span>3D Products</span></a>
+    <a href="artworks.html" data-page="artworks"><span class="led" aria-hidden="true"></span><span>Artworks</span></a>
+    <a href="stories.html" data-page="stories"><span class="led" aria-hidden="true"></span><span>Stories</span></a>
+    <a href="diary.html" data-page="diary" aria-current="page"><span class="led" aria-hidden="true"></span><span>Dear Diary</span></a>
+  </div>
+
+  <div class="foot">
+    <a href="index.html#contact">Contact</a>
+
+  </div>
+</nav>
+
+<main id="main">
+  <section id="diary" aria-labelledby="diary-h">
+    <div class="inner diary-inner">
+      <header class="sec-head reveal"><div><p class="eyebrow">Golfche Space · Journal</p><h1 class="sec-title" id="diary-h">Dear Diary</h1><p class="diary-intro">Work in progress, creative notes, and whatever is taking shape.</p></div></header>
+      <div class="diary-feed" id="diary-feed" aria-live="polite"><p class="catalog-empty">Loading diary entries…</p></div>
+      <article class="diary-post" id="diary-post" hidden></article>
+      <details class="diary-privacy" id="privacy"><summary>Privacy and email updates</summary><div><p>Comments are public only after approval. Your display name and comment text appear on the page. The optional email is stored privately with the comment for moderation and is never shown publicly; deleting the comment removes it. You can leave the email field blank.</p><p>Email subscriptions stay pending until you confirm by email. Confirmed addresses are stored in the site database and processed by the email provider only to send requested updates; every newsletter has an unsubscribe link that removes the address. Cloudflare Turnstile and salted, short-lived IP hashes protect the forms from abuse. For privacy requests, use the site contact link.</p></div></details>
+      <section class="letters-panel" aria-labelledby="letters-title">
+        <div><p class="eyebrow">Occasional notes</p><h2 id="letters-title">Letters from Golfche</h2><p>New renders, diary entries and creative updates, delivered occasionally.</p></div>
+        <form id="subscribe-form" class="diary-form"><label for="subscribe-email">Email address</label><div class="diary-form-row"><input id="subscribe-email" name="email" type="email" autocomplete="email" maxlength="254" required><button type="submit">Subscribe</button></div><label class="consent"><input name="consent" type="checkbox" required><span>I agree to receive occasional Golfche Space updates. I can unsubscribe at any time. <a href="/diary.html#privacy">Privacy details</a>.</span></label><div class="hp-field" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div><div class="turnstile-slot" data-form="subscribe"></div><p class="form-status" id="subscribe-status" role="status"></p></form>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="inner">
+    <div class="foot-grid">
+      <div class="contact">
+        <p class="big">Let&rsquo;s talk.</p>
+        <a class="email" data-user="Golfcheart" data-domain="gmail.com" data-show="true" href="mailto:Golfcheart@gmail.com">Golfcheart@gmail.com</a>
+      </div>
+      <div class="meta">
+        <p><a href="https://www.renderhub.com/golfche/profile" target="_blank" rel="noopener">RenderHub Profile &#8599;</a></p>
+        <p style="margin-top:14px;"><span class="year"></span></p>
+      </div>
+    </div>
+  </div>
+  <script>document.querySelectorAll('.year').forEach(function(el){el.textContent = new Date().getFullYear();});</script>
+</footer>
+
+<script src="assets/products/catalog.js"></script>
+<script src="assets/artworks/catalog.js"></script>
+<script src="assets/diary/catalog.js"></script>
+<script src="assets/diary/diary.js"></script>
+<script src="assets/site.js"></script>
+
+<!-- dev only: open the page with ?jig to drag-set photo crops (see assets/crop-jig.js) -->
+<script>if(location.search.indexOf('jig')>-1){var j=document.createElement('script');j.src='/assets/crop-jig.js';document.body.appendChild(j);}</script>
+
+</body>
+</html>

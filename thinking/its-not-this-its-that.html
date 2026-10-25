@@ -38,7 +38,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
 
 <style>
   :root{
@@ -129,8 +130,9 @@
   .sig b{color:var(--ink);font-weight:600;}
   footer{margin-left:var(--nav-w);background:var(--panel);padding:54px 0;border-top:1px solid var(--line);margin-top:90px;}
   .foot-grid{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;}
-  footer .big{font-family:var(--display);font-weight:800;font-size:clamp(26px,3vw,40px);letter-spacing:-.02em;line-height:1.08;}
-  footer .big a{color:var(--pop);text-decoration:none;}
+  footer .big{font-family:var(--display);font-weight:600;font-size:14px;letter-spacing:.14em;line-height:1.2;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+  footer .contact{display:flex;flex-direction:column;align-items:flex-start;}
+  footer .email{color:var(--pop);font-size:clamp(20px,2vw,26px);font-weight:600;letter-spacing:-.02em;text-decoration:none;}
   footer .meta{font-size:13px;color:var(--muted);text-align:right;}
   footer .meta a{color:var(--ink);}
   @media (prefers-reduced-motion: no-preference){
@@ -153,6 +155,7 @@
     .post-hero{width:100vw;margin:0;}
     figure.tall{float:none;width:100%;max-width:320px;margin:24px auto;}
   }
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto;}}
 </style>
 </head>
 <body>
@@ -173,8 +176,8 @@
     <a href="#use-well"><span class="led" aria-hidden="true"></span><span>Using it well</span></a>
   </div>
   <div class="foot">
-    <a class="email" data-user="you" data-domain="example.com" href="#">Contact</a>
-    <p class="tiny">yoursite.com</p>
+    <a href="#contact">Contact</a>
+
   </div>
 </nav>
 
@@ -240,7 +243,7 @@
         <h2>Your call to action goes here</h2>
         <p>Swap this for whatever you want readers to do next. It&rsquo;s not required&mdash;but an essay that ends on a clear ask beats one that just stops.</p>
         <div class="actions">
-          <a class="btn primary email" data-user="you" data-domain="example.com" href="#">Say hello</a>
+          <a class="btn primary email" data-user="Golfcheart" data-domain="gmail.com" href="#">Say hello</a>
           <a class="btn ghost" href="../index.html#thinking">More thinking <span aria-hidden="true">&#8594;</span></a>
           <a class="btn ghost" href="../lab/em-dash-ipsum.html">Try the generator <span aria-hidden="true">&#8594;</span></a>
         </div>
@@ -257,17 +260,20 @@
   </article>
 </main>
 
-<footer>
+<footer id="contact">
   <div class="wrap">
     <div class="foot-grid">
-      <p class="big">
-        Let&rsquo;s talk.<br><a class="email" data-user="you" data-domain="example.com" data-show="true" href="#">email me</a>
-      </p>
+      <div class="contact">
+        <p class="big">Let&rsquo;s talk.</p>
+        <a class="email" data-user="Golfcheart" data-domain="gmail.com" data-show="true" href="mailto:Golfcheart@gmail.com">Golfcheart@gmail.com</a>
+      </div>
       <div class="meta">
-        <p>yoursite.com &nbsp;/&nbsp; 2026</p>
+        <p><a href="https://www.renderhub.com/golfche/profile" target="_blank" rel="noopener">RenderHub Profile &#8599;</a></p>
+        <p style="margin-top:14px;"><span class="year"></span></p>
       </div>
     </div>
   </div>
+  <script>document.querySelectorAll('.year').forEach(function(el){el.textContent = new Date().getFullYear();});</script>
 </footer>
 
 <script>

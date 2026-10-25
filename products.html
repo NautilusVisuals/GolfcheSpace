@@ -1,0 +1,181 @@
+<!doctype html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════════╗
+  ║  EM-DASH FOLIO — a free, open-source portfolio template               ║
+  ║  Single-page scroller + essay / lab / gated-case-study sub-pages.     ║
+  ║                                                                      ║
+  ║  TO MAKE IT YOURS:                                                    ║
+  ║   1. Find-and-replace  "Your Name"   with your name.                  ║
+  ║   2. Replace the Em-Dash Ipsum copy (the silly em-dash-loving filler) ║
+  ║      with your own words.                                             ║
+  ║   3. Swap the cute-animal placeholders in /assets/aww for real art.   ║
+  ║   4. Update the email + social links (search: data-user / example.com)║
+  ║   5. Drop your analytics snippet where marked in <head>.             ║
+  ║  License: MIT. Credit appreciated, never required. — see README.md   ║
+  ╚══════════════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D Products — Golfche Space</title>
+<meta name="description" content="Browse Golfche’s 3D character products and digital assets.">
+<meta property="og:title" content="3D Products — Golfche Space">
+<meta property="og:description" content="Browse Golfche’s 3D character products and digital assets.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://example.com/products.html">
+<meta property="og:image" content="https://example.com/assets/og/home.jpg">
+<link rel="canonical" href="https://example.com/products.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://example.com/assets/og/home.jpg">
+
+<!-- ===== Analytics =====
+     Left intentionally blank. Drop your own snippet here (GA4, Plausible,
+     Fathom, etc.). If you use GA4, paste the gtag.js snippet and remember to
+     allow googletagmanager.com in any Content-Security-Policy you add. -->
+
+<!-- ===== Structured data (JSON-LD) — edit the placeholders, then keep it ===== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {"@type":"WebPage","@id":"https://example.com/products.html#webpage","url":"https://example.com/products.html","name":"3D Products — Golfche Space","description":"Browse Golfche’s 3D character products and digital assets.","isPartOf":{"@id":"https://example.com/#website"},"about":{"@id":"https://example.com/#person"}},
+    {
+      "@type": "Person",
+      "@id": "https://example.com/#person",
+      "name": "Your Name",
+      "url": "https://example.com",
+      "jobTitle": "What you do",
+      "description": "One or two sentences about you. Em-dashes optional — but encouraged.",
+      "sameAs": []
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://example.com/#website",
+      "url": "https://example.com",
+      "name": "Your Name",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://example.com/#person" }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico">
+
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body data-page="products">
+
+<a class="skip" href="#main">Skip to content</a>
+
+<button class="navtoggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+  <span class="bars" aria-hidden="true"></span>
+</button>
+
+<!-- ====== floating, borderless liquid-glass left nav ====== -->
+<nav class="sidebar" id="primary-nav" aria-label="Primary">
+  <a class="wordmark" href="index.html">
+    <span class="name">Golfche</span>
+  </a>
+  <p class="status">
+    <span class="dot" aria-hidden="true"></span>
+    <span class="status-copy">3D Artist • Character Creator • Dreamer • Writer</span>
+  </p>
+
+  <div class="nav">
+    <a href="index.html" data-page="home"><span class="led" aria-hidden="true"></span><span>Home</span></a>
+    <a href="products.html" data-page="products" aria-current="page"><span class="led" aria-hidden="true"></span><span>3D Products</span></a>
+    <a href="artworks.html" data-page="artworks"><span class="led" aria-hidden="true"></span><span>Artworks</span></a>
+    <a href="stories.html" data-page="stories"><span class="led" aria-hidden="true"></span><span>Stories</span></a>
+    <a href="diary.html" data-page="diary"><span class="led" aria-hidden="true"></span><span>Dear Diary</span></a>
+  </div>
+
+  <div class="foot">
+    <a href="index.html#contact">Contact</a>
+
+  </div>
+</nav>
+
+<main id="main">
+
+  <!-- ====== 3D products ====== -->
+  <section id="products" aria-labelledby="products-h">
+    <div class="inner">
+      <div class="sec-head reveal">
+        <div>
+          <p class="eyebrow">Digital assets &amp; character tools</p>
+          <h2 class="sec-title" id="products-h">3D Products</h2>
+        </div>
+      </div>
+      <div class="catalog-list" id="products-list">
+        <p class="catalog-empty" id="products-empty" role="status">No products are listed yet.</p>
+        <div class="products-tools" id="products-tools" hidden>
+          <div class="product-filters" role="group" aria-label="Filter products by category">
+            <button class="product-filter" type="button" data-category="all" aria-pressed="true">All Products</button>
+            <button class="product-filter" type="button" data-category="characters" aria-pressed="false">Characters</button>
+            <button class="product-filter" type="button" data-category="bundles" aria-pressed="false">Bundles</button>
+            <button class="product-filter" type="button" data-category="other-assets" aria-pressed="false">Other Assets</button>
+          </div>
+          <div class="products-tools__right">
+            <p class="products-count" id="products-count" role="status" aria-live="polite">Showing 0 products</p>
+            <select class="product-sort" id="products-sort" aria-label="Sort products">
+              <option value="newest">Newest</option>
+              <option value="name">Name A–Z</option>
+              <option value="price-low">Price Low to High</option>
+              <option value="price-high">Price High to Low</option>
+            </select>
+          </div>
+        </div>
+        <div class="catalog-grid" id="products-grid" role="region" aria-label="3D products" hidden></div>
+        <nav class="products-pagination" id="products-pagination" aria-label="Product pages" hidden></nav>
+      </div>
+      <div class="detail-view" id="products-detail" aria-live="polite" hidden></div>
+      <details class="cart-panel" id="cart-panel">
+        <summary class="cart-summary"><h3>Cart</h3><span class="cart-count" id="cart-count">0 items</span></summary>
+        <div class="cart-content">
+          <p class="cart-empty" id="cart-empty">Your cart is empty.</p>
+          <ul class="cart-items" id="cart-items" aria-live="polite"></ul>
+          <div class="cart-totals">
+            <p class="cart-total"><span>Subtotal</span><strong id="cart-subtotal">—</strong></p>
+            <p class="cart-total"><span>Total</span><strong id="cart-total">—</strong></p>
+          </div>
+          <button class="cart-checkout" type="button" disabled aria-describedby="checkout-status">Checkout unavailable</button>
+          <p class="cart-status" id="checkout-status">Payment and secure digital delivery are not configured. No payment details are collected here.</p>
+        </div>
+      </details>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="inner">
+    <div class="foot-grid">
+      <div class="contact">
+        <p class="big">Let&rsquo;s talk.</p>
+        <a class="email" data-user="Golfcheart" data-domain="gmail.com" data-show="true" href="mailto:Golfcheart@gmail.com">Golfcheart@gmail.com</a>
+      </div>
+      <div class="meta">
+        <p><a href="https://www.renderhub.com/golfche/profile" target="_blank" rel="noopener">RenderHub Profile &#8599;</a></p>
+        <p style="margin-top:14px;"><span class="year"></span></p>
+      </div>
+    </div>
+  </div>
+  <script>document.querySelectorAll('.year').forEach(function(el){el.textContent = new Date().getFullYear();});</script>
+</footer>
+
+<script src="assets/products/catalog.js"></script>
+<script src="assets/artworks/catalog.js"></script>
+<script src="assets/stories/catalog.js"></script>
+<script src="assets/site.js"></script>
+
+<!-- dev only: open the page with ?jig to drag-set photo crops (see assets/crop-jig.js) -->
+<script>if(location.search.indexOf('jig')>-1){var j=document.createElement('script');j.src='/assets/crop-jig.js';document.body.appendChild(j);}</script>
+
+</body>
+</html>

@@ -12,18 +12,21 @@ If you are the AI reading this: read the whole thing before editing anything. Th
 
 | | |
 |---|---|
-| `index.html` | the homepage: one long scroller with five sections, Who, Thinking, AI Lab, Selected Work, Personal. All copy, cards and links for the homepage live here |
+| `index.html` | the homepage and shared sidebar navigation |
+| `products.html`, `artworks.html`, `stories.html` | catalogue pages backed by Markdown and generated catalogues |
+| `diary.html`, `works/diary/*.md` | Dear Diary feed and Markdown post source; `py build_site.py` generates published post pages and excludes source files from deployment |
 | `thinking/*.html` | essays. One file per essay. Two ship as patterns: `the-em-dash-manifesto.html`, `its-not-this-its-that.html` |
 | `lab/the-dashinator.html` | a "making of" write-up. Same chrome as an essay, purple accent. The pattern for any lab page that is mostly words |
 | `lab/em-dash-ipsum.html` | a working tool. Centred single column, no left rail, a `<main id="tool">` and its own script. The pattern for any lab page that is mostly an app |
 | `work/case-study.html` | a password-gated case study, built as a full-screen scroll-snap slide deck in STAR order. The pattern for every case study |
 | `404.html` | the not-found page |
 | `robots.txt`, `sitemap.xml`, `llms.txt` | discovery files. Edit the domain; keep the structure |
-| `assets/` | `favicon.svg`, `resume.pdf` (placeholder), `og/` share images, `aww/` placeholder animal photos, `crop-jig.js` (the dev-only crop tool, below) |
+| `assets/` | shared site styles/scripts, generated catalogues, images, `favicon.svg`, `crop-jig.js` (the dev-only crop tool, below) |
+| `functions/`, `migrations/` | optional Cloudflare Pages API and D1 schema for Dear Diary comments, subscriptions, moderation and email |
 | `screenshots/` | README images only. Not used by the site; safe to ignore |
 | `README.md` | the human-facing guide. This file is the agent-facing one. They agree; if they ever disagree, this one is more specific |
 
-**Every page is self-contained.** Each `.html` carries its entire CSS in a `<style>` block and its entire JS in `<script>` blocks. There is no shared stylesheet, no component library, no build step, no `node_modules`. Google Fonts is the only external request.
+Most original essay and lab pages carry their own CSS and JS. Newer catalogue pages use `assets/site.css` and `assets/site.js`. `py build_catalogs.py` refreshes catalogue data; `py build_site.py` also creates deployable `dist/` output and excludes editable `works/` source files. No framework or Node package is required. Dear Diary's API needs Cloudflare Pages Functions and the provider setup in `docs/diary-setup.md`.
 
 ---
 
@@ -182,6 +185,14 @@ Same as an essay, with these differences:
 - The homepage card goes in `#lab .cards`, and the `.go` text names the action (`Try it →`, `Read the making-of →`).
 - The shipped Em-Dash Ipsum page is a real tool with its own repository credit; if the owner keeps it, leave its copy alone. If they do not want it, delete the file, its card, its sitemap and `llms.txt` lines, and the link to it inside the Who section copy.
 
+### Add a Dear Diary post
+
+1. Copy `templates/diary-template.md` to `works/diary/<slug>.md`. Edit the slug, title, date (`YYYY-MM-DD`), optional excerpt, tags, images (with real dimensions and optional captions), related links, publication status and comment setting.
+2. Put images under `assets/img/diary/<slug>/`. Write the body below the closing `---` using Markdown headings, paragraphs, emphasis, links and lists.
+3. Keep `published: false` while drafting. Drafts are omitted from the public catalogue, generated pages, sitemap and `llms.txt`; the build excludes the whole `works/` folder.
+4. Publish by setting `published: true`. Run `py build_site.py` (Windows) or `python build_site.py`; preview `dist/` with `py -m http.server 8000 --directory dist`. The build validates catalogues, generates `/diary/<slug>.html`, and updates discovery files. Push the source, images and generated sitemap/`llms.txt` changes for Cloudflare Pages to deploy.
+5. Unpublish by setting the field to false and rebuilding/deploying. Remove a post by deleting its Markdown file and unused images, then rebuild. Configure and use comments, subscriptions and moderation as explained in `docs/diary-setup.md`.
+
 ### Add a case study
 
 1. Copy `work/case-study.html` to `work/<slug>.html`. Set `<title>` (`Study title · Owner Name`) and `meta description`; the copy still says "template". Gated pages carry no JSON-LD and no `og:` tags on purpose; do not add them.
@@ -323,7 +334,7 @@ Have them do this first: `cd` to the site folder, then `ls`, and paste the outpu
 ### Step 1: the site in a GitHub repo
 
 1. Account at github.com (free). Username becomes part of URLs, so something sensible.
-2. New repository: the **+** in the top bar, **New repository**. Name it (`portfolio` or the domain name, lowercase, no spaces), **Public**, do not tick "Add a README" (the folder already has one). Create.
+2. New repository: the **+** in the top bar, **New repository**. Name it (`portfolio` or the domain name, lowercase, no spaces), do not tick "Add a README" (the folder already has one). Use **Private** if it contains unpublished Dear Diary source files; a public Git repository exposes drafts even though the Pages build excludes them. Create.
 3. Get the files in. Two routes:
    - **GitHub Desktop** (recommended if they have never used git): install it, sign in, **File, Add local repository**, choose the folder; if it says the folder is not a repository, click **create a repository** there, then **Publish repository** at the top and pick the repo from step 2. Every later change is: open GitHub Desktop, write a one-line summary, **Commit to main**, **Push origin**.
    - **Terminal** (set up in Step 0), from inside the site folder, once:
@@ -338,17 +349,17 @@ The `.gitignore` already excludes OS junk. There are no secrets in this site; th
 
 ### Step 2: hosting (free, automatic deploys)
 
-**Recommended: Cloudflare Pages.** Free, fast, custom domains included, no build step needed, and it is the same company that will handle DNS in step 3, which removes a whole category of confusion.
+**Recommended for Dear Diary: Cloudflare Pages.** This repo uses a small Python build and Pages Functions for the server-side API. D1 stores comments/subscribers, Turnstile protects public forms, Access protects the admin, and Resend sends email. Exact setup is in `docs/diary-setup.md`.
 
 1. Account at cloudflare.com (free plan).
 2. In the dashboard, **Workers & Pages** (sometimes under **Compute**), **Create**, choose the **Pages** tab, **Connect to Git**, authorise GitHub, pick the repo. (Cloudflare moves these labels around; if the screen talks about "Workers" and offers to import a Git repository for a static site, that is the same thing.)
-3. Build settings: **Framework preset: None**, **Build command: empty**, **Build output directory: `/`** (the repo root). Save and Deploy.
+3. Build settings: **Framework preset: None**, **Build command: `python build_site.py`**, **Build output directory: `dist`**. Keep the repository root as the build root so Pages can find `functions/` and `migrations/`.
 4. In a minute it reports a URL like `https://<project>.pages.dev`. That is the live site. Have the owner open it and paste the URL to you; check `/thinking/the-em-dash-manifesto` and a case study load from it.
 5. From now on, every push to `main` redeploys. **The first few minutes after a push the old content still shows; that is normal.** Do not debug a deploy that is under ten minutes old.
 6. Limits worth knowing: no single file over 25 MB; keep videos small or host them elsewhere.
 
 **Alternatives, if they already have one:**
-- **GitHub Pages:** repo **Settings, Pages, Source: Deploy from a branch, Branch: main, folder: / (root)**. The site appears at `https://<username>.github.io/<repo>/`. **That trailing `/<repo>/` breaks this template**: pages reference `/assets/favicon.svg` from the root, so under a sub-path the favicon and any root-absolute path 404. Either name the repo exactly `<username>.github.io` (then the site is at the root and everything works), attach a custom domain (a custom domain on GitHub Pages serves from the root, so the problem disappears), or use Cloudflare. Custom domains are set under Settings, Pages, Custom domain, with the DNS steps below; GitHub's own docs list the four A records for the apex and the `<username>.github.io` CNAME for `www`.
+- **GitHub Pages:** repo **Settings, Pages, Source: Deploy from a branch, Branch: main, folder: / (root)**. The site appears at `https://<username>.github.io/<repo>/`. **That trailing `/<repo>/` breaks this template**: pages reference `/assets/favicon.svg` from the root, so under a sub-path the favicon and any root-absolute path 404. Either name the repo exactly `<username>.github.io` (then the site is at the root and everything works), attach a custom domain (a custom domain on GitHub Pages serves from the root, so the problem disappears), or use Cloudflare. Custom domains are set under Settings, Pages, Custom domain, with the DNS steps below; GitHub's own docs list the four A records for the apex and the `<username>.github.io` CNAME for `www`. GitHub Pages only serves the static output; Dear Diary's Functions API needs a compatible serverless host.
 - **Netlify:** drag the folder onto app.netlify.com for a one-off, or connect the repo for auto-deploys. Build command empty, publish directory `/`.
 - **Vercel:** import the repo, framework **Other**, no build command, output `.`.
 
@@ -415,7 +426,7 @@ Edit, commit, push; the host redeploys. A change to any `.html` file shows withi
 - **One `<h1>` per page.** Section headings are `<h2>`, in-section headings `<h3>`.
 - **Keep `width`/`height` on images and `rel="noopener"` on `target="_blank"` links.**
 - **Gated pages keep `noindex`, stay out of the sitemap, and never get a `robots.txt` Disallow.**
-- **No dependencies.** No framework, no CDN script, no build tool, no package.json. If a feature needs a library, write it small in vanilla JS or tell the owner the trade-off.
+- **Keep the stack small.** No framework or Node package is required. Python's standard library builds static output. Pages Functions run the API; provider credentials belong in Cloudflare settings, not frontend files.
 - **The attribution credit in the homepage footer stays.**
 - **The headline lock holds:** `aria-label` on the `<h1>`, empty second `roll__item`, crawler note, `llms.txt` line, all in sync. Never put text in the second roll item "so it shows without JS"; that is the exact bug it prevents.
 - **Every indexable page has schema; every gated page has none.** No new page ships without its JSON-LD block, and no page ships with a block that fails to parse.

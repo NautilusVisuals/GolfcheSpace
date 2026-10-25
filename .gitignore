@@ -13,3 +13,7 @@
 # Logs / scratch
 *.log
 node_modules/
+__pycache__/
+*.pyc
+.dev.vars
+dist/
