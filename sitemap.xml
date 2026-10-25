@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Indexable pages ONLY. Do not list noindex /work/ case-study templates.
-     Replace example.com with your domain and update lastmod when pages change. -->
+     Domain is configured in CNAME; update lastmod when pages change. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://example.com/</loc><lastmod>2026-10-25</lastmod></url>
-  <url><loc>https://example.com/products.html</loc><lastmod>2026-10-25</lastmod></url>
-  <url><loc>https://example.com/artworks.html</loc><lastmod>2026-10-25</lastmod></url>
-  <url><loc>https://example.com/stories.html</loc><lastmod>2026-10-25</lastmod></url>
-  <url><loc>https://example.com/diary.html</loc><lastmod>2026-10-25</lastmod></url>
-  <url><loc>https://example.com/thinking/the-em-dash-manifesto</loc><lastmod>2026-01-01</lastmod></url>
-  <url><loc>https://example.com/thinking/its-not-this-its-that</loc><lastmod>2026-01-02</lastmod></url>
-  <url><loc>https://example.com/lab/em-dash-ipsum</loc><lastmod>2026-01-03</lastmod></url>
-  <url><loc>https://example.com/lab/the-dashinator</loc><lastmod>2026-01-03</lastmod></url>
+  <url><loc>https://golfche.space/</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://golfche.space/products.html</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://golfche.space/artworks.html</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://golfche.space/stories.html</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://golfche.space/diary.html</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://golfche.space/thinking/the-em-dash-manifesto</loc><lastmod>2026-01-01</lastmod></url>
+  <url><loc>https://golfche.space/thinking/its-not-this-its-that</loc><lastmod>2026-01-02</lastmod></url>
+  <url><loc>https://golfche.space/lab/em-dash-ipsum</loc><lastmod>2026-01-03</lastmod></url>
+  <url><loc>https://golfche.space/lab/the-dashinator</loc><lastmod>2026-01-03</lastmod></url>
+
+
 
 
 

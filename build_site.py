@@ -43,14 +43,19 @@ def main():
 
 
 def prepare_github_pages():
-    """Make generated output work at GitHub Pages' repository subpath."""
+    """Make generated output work with the custom domain or a Pages subpath."""
     (DIST / ".nojekyll").write_text("", encoding="utf-8")
     repository = os.environ.get("GITHUB_REPOSITORY", "").strip()
     if not repository or "/" not in repository:
         return
     owner, name = repository.split("/", 1)
+    custom_domain_path = DIST / "CNAME"
+    custom_domain = custom_domain_path.read_text(encoding="utf-8").strip() if custom_domain_path.exists() else ""
     configured_url = os.environ.get("GITHUB_PAGES_URL", "").strip().rstrip("/")
-    if configured_url:
+    if custom_domain:
+        site_url = f"https://{custom_domain}"
+        base_path = ""
+    elif configured_url:
         parsed_url = urlsplit(configured_url)
         site_url = f"{parsed_url.scheme}://{parsed_url.netloc}{parsed_url.path.rstrip('/')}"
         base_path = parsed_url.path.rstrip("/")
@@ -62,7 +67,7 @@ def prepare_github_pages():
         if not path.is_file() or path.suffix.lower() not in (".html", ".xml", ".txt"):
             continue
         text = path.read_text(encoding="utf-8")
-        text = text.replace("https://example.com", site_url)
+        text = text.replace("https://golfche.space", site_url).replace("https://example.com", site_url)
         if base_path:
             text = re.sub(r'(["\'])/(assets|diary)(?=/)', rf'\1{base_path}/\2', text)
             text = text.replace('href="/"', f'href="{base_path}/"')
@@ -86,22 +91,22 @@ def generate_post_pages(posts):
         slug = post["slug"]
         title = str(post["title"]).strip()
         description = str(post.get("excerpt") or title).strip()
-        canonical = f"https://example.com/diary/{slug}.html"
+        canonical = f"https://golfche.space/diary/{slug}.html"
         share_image = post.get("images", [{}])[0].get("src") if post.get("images") else "assets/og/home.jpg"
         document = template.replace('<title>Dear Diary — Golfche Space</title>', f"<title>{html.escape(title)} — Dear Diary · Golfche Space</title>")
         document = document.replace('<meta name="description" content="Work-in-progress renders, character updates, art and notes from Golfche Space.">', f'<meta name="description" content="{html.escape(description, quote=True)}">')
         document = document.replace('<meta property="og:title" content="Dear Diary — Golfche Space">', f'<meta property="og:title" content="{html.escape(title, quote=True)} — Dear Diary · Golfche Space">')
         document = document.replace('<meta property="og:description" content="Work-in-progress renders, character updates, art and notes from Golfche Space.">', f'<meta property="og:description" content="{html.escape(description, quote=True)}">')
         document = document.replace('<meta property="og:type" content="website">', '<meta property="og:type" content="article">')
-        document = document.replace('https://example.com/diary.html', canonical)
-        document = document.replace('https://example.com/assets/og/home.jpg', f"https://example.com/{share_image}")
+        document = document.replace('https://golfche.space/diary.html', canonical)
+        document = document.replace('https://golfche.space/assets/og/home.jpg', f"https://golfche.space/{share_image}")
         document = document.replace('<body data-page="diary">', f'<body data-page="diary" data-post="{html.escape(slug, quote=True)}">')
         document = document.replace('<h1 class="sec-title" id="diary-h">Dear Diary</h1>', '<p class="sec-title" id="diary-h">Dear Diary</p>')
         document = document.replace('<head>', '<head>\n<base href="/">', 1)
         schema = {
             "@context": "https://schema.org", "@type": "BlogPosting", "@id": canonical + "#post",
             "mainEntityOfPage": canonical, "headline": title, "description": description,
-            "image": "https://example.com/" + share_image, "datePublished": post["date"], "dateModified": post["date"],
+            "image": "https://golfche.space/" + share_image, "datePublished": post["date"], "dateModified": post["date"],
             "author": {"@type": "Person", "name": "Golfche"}, "publisher": {"@type": "Person", "name": "Golfche"}
         }
         document = re.sub(r'<script type="application/ld\+json">[\s\S]*?</script>', '<script type="application/ld+json">\n' + json.dumps(schema, ensure_ascii=False, indent=2) + '\n</script>', document, count=1)
@@ -114,7 +119,7 @@ def update_discovery_files(posts):
     sitemap = re.sub(r"\n?  <!-- BEGIN diary posts -->[\s\S]*?  <!-- END diary posts -->", "", sitemap)
     lines = ["  <!-- BEGIN diary posts -->"]
     for post in posts:
-        lines.append(f"  <url><loc>https://example.com/diary/{html.escape(post['slug'])}.html</loc><lastmod>{post['date']}</lastmod></url>")
+        lines.append(f"  <url><loc>https://golfche.space/diary/{html.escape(post['slug'])}.html</loc><lastmod>{post['date']}</lastmod></url>")
     lines.append("  <!-- END diary posts -->")
     sitemap = sitemap.replace("</urlset>", "\n" + "\n".join(lines) + "\n</urlset>")
     sitemap_path.write_text(sitemap, encoding="utf-8")
