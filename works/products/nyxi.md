@@ -1,7 +1,7 @@
 ---
 id: nyxi
 slug: nyxi
-name: Nyxi
+name: Nyxi for Genesis 9
 category: characters
 badge: null
 thumbnail:
