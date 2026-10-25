@@ -164,4 +164,4 @@ window.GolfcheProducts = [
     "purchaseUrl": "",
     "order": 2
   }
-];\n
+];
