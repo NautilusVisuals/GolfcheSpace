@@ -2,8 +2,8 @@
 window.GolfchePayPalConfig = {
   // Find this in PayPal Developer Dashboard > Apps & Credentials. Never paste a secret here.
   clientIdSandbox: 'BAAQ3jjsCrZeNEsDRI0xPNvEUnOHKTxE5pJ8f7nP0ZZR48bDUqU2KMCMkAAS-1ROLIDuKYc9e2ETOwTZYY',
-  clientIdLive: 'YOUR_PAYPAL_LIVE_PUBLIC_CLIENT_ID',
+  clientIdLive: 'BAAvgGfUv5KLyHtr4G6padFUCUhotgpjQ75-zaXaNPv4UGcLTsXkBxVWoWJjoMzXcuklptnX5As6f6AHBY',
   // true selects the sandbox app's public Client ID; false selects the live app's ID.
-  sandbox: true,
+  sandbox: false,
   currency: 'USD'
 };
